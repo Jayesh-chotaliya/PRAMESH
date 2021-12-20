@@ -1852,9 +1852,8 @@ class Api extends MX_Controller
 
 	public function addtocart()
 	{	
-	
-		
-	    $data['iProductId']              	= $_POST['iProductId'];
+		///////////jayesh change 6:41
+ 	    $data['iProductId']              	= $_POST['iProductId'];
         $data['vProductName']       		= $_POST['vProductName'];
         $data['vPrice']           			= $_POST['vPrice'];
 		$data['vCookie'] 					= $_POST['vCookie'];
