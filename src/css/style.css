@@ -1,0 +1,385 @@
+.login-page {
+  background-color: #eed0d0bf;
+}
+.h-101 {
+  height: 100px;
+}
+.w-101 {
+  width: 100px;
+}
+.red {
+  color: red;
+}
+.white {
+  color: white !important;
+  font-family: none;
+}
+.Toastify__toast {
+  width: 17cm;
+}
+.multiple_image {
+  height: 10rem !important;
+  width: 10rem;
+  margin: 0.2rem;
+}
+
+.gallery2 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gallery img{
+  margin: 0.5rem ;
+}
+
+/* *****login Page Design ********* */
+
+@import url("//db.onlinewebfonts.com/c/fe2027c27b6a24505f548c6fd2e1076d?family=Berlin+Sans+FB");
+
+.wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.login_body{
+  font-family: "Berlin Sans FB" !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-page{
+  width: 25rem;
+    padding: 2rem;
+    height: 26rem;
+    box-shadow: 2px 2px 4px rgba(255, 255, 255, 0.2) , -2px -2px 4px rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+    border: 1px solid #fff;
+  }
+
+.login-page input{
+  font-family: "Berlin Sans FB" !important;
+}
+
+
+
+.dashShadow{
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* ************** BUTTONS STYLING (DASHBOARD)**************** */
+
+/* *****BTN2 ****** */
+
+.myBtn2 {
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+  font-weight: 700;
+  background-color: #222;
+  z-index: 2;
+  width: 6rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.myBtn2:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 490%;
+  width: 211%;
+  background: #f5365c;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  z-index: -1;
+  -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+  transform: translateX(-98%) translateY(-25%) rotate(45deg);
+}
+
+.myBtn2:hover:after {
+  -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+  transform: translateX(-9%) translateY(-25%) rotate(45deg);
+}
+
+.myBtn2:hover {
+  color: #fff !important;
+}
+
+/* ************ BTN3 *************** */
+
+.myBtn3 {
+  position: relative;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 1;
+  width: 6rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.myBtn3:before,
+.myBtn3:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: #5e72e4;
+  border-radius: 50%;
+  z-index: -1;
+  transition: 0.3s ease all;
+}
+.myBtn3:before {
+  left: -30px;
+  transform: translate(-50%, -50%);
+}
+.myBtn3:after {
+  right: -30px;
+  transform: translate(50%, -50%);
+}
+.myBtn3:hover {
+  color: #fff;
+  transition: 0.3s color 0.3s;
+  border: 1px solid #5e72e4;
+}
+.myBtn3:hover:before {
+  left: 50%;
+  animation: 0.3s grow 0.3s forwards;
+}
+.myBtn3:hover:after {
+  right: 50%;
+  animation: 0.3s grow 0.3s forwards;
+}
+@keyframes grow {
+  from {
+    height: 20px;
+    width: 20px;
+  }
+  to {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
+
+/* *******BTN 4 ************** */
+
+.myBtn4 {
+  position: relative;
+  border: 1px solid #5e72e4;
+  border-radius: 3px;
+  text-transform: uppercase;
+  color: #5e72e4;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: transparent;
+  font-weight: bold;
+  transition: all 250ms ease;
+  text-decoration: none;
+  width: 6rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+}
+
+.myBtn4:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 150%;
+  height: 100%;
+  background-color: #5e72e4;
+  z-index: -1;
+  transform: skew(-45deg) translateX(-150%);
+  animation: buttonOut 0.3s ease-in;
+}
+
+.myBtn4:hover {
+  color: #fff !important;
+  box-shadow: 5px 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.myBtn4:hover:before {
+  animation: buttonIn 0.3s ease-out forwards;
+}
+
+
+
+@keyframes buttonIn {
+  0% {
+    transform: skew(-45deg) translateX(-150%);
+  }
+  100% {
+    transform: skew(-45deg) translateX(-50%);
+  }
+}
+
+@keyframes buttonOut {
+  0% {
+    transform: skew(-45deg) translateX(-50%);
+  }
+  100% {
+    transform: skew(-45deg) translateX(150%);
+  }
+}
+
+
+
+/* ******DashBoard Navbar style ****** */
+
+.myShadow{
+
+    margin-bottom: 2rem;
+    box-shadow: 2px 2px 4px rgb(0 0 0 / 40%), -2px -2px 4px rgb(0 0 0 / 40%);
+}
+
+
+/********* Product edit & product Image Style ********** */
+
+
+
+.genBtn{ 
+  border: 1px solid #5e72e4;
+}
+
+.genBtn.Active{
+  background-color: #5e72e4;
+  color: #fff;
+}
+
+.closeBtn{
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  background-color: #fff;
+  width: 1.5rem;
+  height: 1.5rem ;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.closeBtn .fa-close{
+  font-weight: 100;
+  font-size: 0.8rem;
+}
+
+
+.fa-eye-slash , .fa-eye{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+
+/* .fix{
+  color: red !important;
+  background: red;
+  font-size: 7rem;
+} */
+
+
+
+/* LOADER STYLING  */
+
+
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  margin-left: 10%;
+  transform: translate3d(-50%, -50%, 0);
+}
+.dot {
+  width: 24px;
+  height: 24px;
+  background: #3ac;
+  border-radius: 100%;
+  display: inline-block;
+  animation: slide 1s infinite;
+}
+.dot:nth-child(1) {
+  animation-delay: 0.1s;
+  background: #32aacc;
+}
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+  background: #64aacc;
+}
+.dot:nth-child(3) {
+  animation-delay: 0.3s;
+  background: #96aacc;
+}
+.dot:nth-child(4) {
+  animation-delay: 0.4s;
+  background: #c8aacc;
+}
+.dot:nth-child(5) {
+  animation-delay: 0.5s;
+  background: #faaacc;
+}
+@-moz-keyframes slide {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes slide {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-o-keyframes slide {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes slide {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
