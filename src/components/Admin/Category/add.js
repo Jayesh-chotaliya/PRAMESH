@@ -9,10 +9,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Categoryadd = () => {
     let history = useHistory();
-    const [Title, setTitle]         = useState("");
-    const [Image, setImage]         = useState("");
+    const [Title, setTitle]             = useState("");
+    const [Image, setImage]             = useState("");
     const [ProductType, setProductType] = useState("0");
-    const [Status, setStatus]       = useState("Inactive");
+    const [Status, setStatus]           = useState("Inactive");
+    const [Gif, setGif]                 = useState(false);
 
     const [TitleError, setTitleError]   = useState("");
     const [ImageError, setImageError]   = useState("");
@@ -55,9 +56,11 @@ const Categoryadd = () => {
         fd.append('eStatus', Status);
         if (Title && Image)
         {
+            setGif(true);
             const dataa = axios.post(url, fd)
                 .then(res => {
                     if (res.data.Status == '0') {
+                        setGif(false);
                         toast.success(res.data.message, {
                             position: "top-center",
                             autoClose: 5000,
@@ -74,6 +77,7 @@ const Categoryadd = () => {
                         }, 2000);
                     }
                     else {
+                        setGif(false);
                         toast.error(res.data.message, {
                             position: "top-center",
                             autoClose: 5000,
@@ -92,9 +96,7 @@ const Categoryadd = () => {
     }
     
     return (
-
         <>
-
             <Sidebar />
             <div className="main-content" id="panel" >
                 <Header />
@@ -159,7 +161,14 @@ const Categoryadd = () => {
 
                                                 <div className="col-lg-12">
                                                     <div className="form-group">
-                                                        <button type="button" onClick={addcategory} className="btn  btn-primary">Submit</button>
+                                                        <button type="button" onClick={addcategory} className="btn  btn-primary">
+                                                            {
+                                                                Gif == true ?
+                                                                    <img className="loding_gif" src={process.env.PUBLIC_URL + "/Images/3.gif"} alt="img" />
+                                                                    :
+                                                                    <>Submit</>
+                                                            }
+                                                        </button>
                                                         <Link to='/admin/category/listing'>
                                                             <a><button type="button" className="btn btn-warning">Back</button></a>
                                                         </Link>

@@ -55,11 +55,11 @@ const Maincategory = () => {
                 <div className="row">
                     {
                         maindata.map((sarees, index) => (
-                            <div className=" col-xl-4 col-lg-6  col-md-8 col-sm-10  flex mb-5 mx-auto  ">
+                            <div className=" position-relative col-xl-4 col-lg-6  col-md-8 col-sm-10  flex mb-5 mx-auto  ">
                                 <h1 className="text mb-5">{sarees.vTitle}</h1>
                                 <div className="img flex">
                                     <img src={sarees.vImage} />
-                                    <button className="sareeBtn">BUY NOW<i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                    {/* <button className="sareeBtn">BUY NOW<i class="fa fa-chevron-right" aria-hidden="true"></i></button> */}
                                 </div>
                             </div>
                         ))

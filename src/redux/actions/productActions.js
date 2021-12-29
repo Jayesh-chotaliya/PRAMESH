@@ -72,3 +72,17 @@ export const setAddtocartpage =(singleproduct) => {
         payload: singleproduct
     }
 }
+
+export const setAddtocartsavedata = (cartdata) => {
+    return {
+        type: Actiontype.ADDTOCARTSAVEDATA,
+        payload: cartdata
+    }
+}
+
+export const setAddtocartsubtotal = (total) => {
+    return {
+        type: Actiontype.ADDTOCARTSUBTOTAL,
+        payload: total
+    }
+}

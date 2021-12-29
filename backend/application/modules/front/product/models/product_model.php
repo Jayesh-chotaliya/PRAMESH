@@ -101,7 +101,7 @@ class Product_model extends CI_Model
         {
             $this->db->from($this->table_product_image);
             $this->db->where('iProductId',$value->iProductId);
-            $this->db->limit(4);
+            $this->db->limit(6);
             $query=$this->db->get();
             $data[$key]->image = $query->result();
         }
@@ -117,6 +117,15 @@ class Product_model extends CI_Model
         $this->db->where('t1.iProductId',$iProductId);
         $query=$this->db->get();
         $data = $query->result();
+        if(count($data)==0)
+        {
+            $this->db->select('t1.*');
+            $this->db->from($this->table_product_variants.' t1');
+            $this->db->where('t1.iProductId',$iProductId);
+            $query=$this->db->get();
+            $data = $query->result();
+        }
+
         return $data;  
     }
     public function get_by_all_image($iProductId)

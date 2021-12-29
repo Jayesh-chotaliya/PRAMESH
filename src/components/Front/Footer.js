@@ -17,7 +17,7 @@ const Footer = () => {
                         Sign up and get notified about the latest launches and surprises
                     </p>
                 </div>
-                <div className="input mb-5">
+                <div className="input   mb-5 " >
                     <input
                         type="email"
                         name="email"

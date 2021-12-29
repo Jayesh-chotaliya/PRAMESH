@@ -10,6 +10,10 @@ require("isomorphic-fetch");
 // );
 
 const Addtocart   = React.lazy(() => import("./components/Front/Addtocart/Addtocart"));
+const PageNotFound = React.lazy(() => import("./components/Front/Errorpage/Errorpage"));
+const Checkout = React.lazy(() => import("./components/Front/Checkout/Checkout"));
+const Verifyotp = React.lazy(() => import("./components/Front/Verifyotp/Verifyotp"));
+const Viewcart = React.lazy(() => import("./components/Front/Viewcart/Viewcart"));
 
 
 const Register = React.lazy(() =>
@@ -184,245 +188,122 @@ class App extends React.Component {
       localStorage.setItem("setupTime", now);
     } else {
       if (now - setupTime > hours * 60 * 60 * 1000) {
-        localStorage.clear();
+        // localStorage.clear();
+        localStorage.removeItem("iAdminId");
+        localStorage.removeItem("vUserName");
         localStorage.setItem("setupTime", now);
       }
     }
     // *****************Cookie data Store *************************************
     var cookie = localStorage.getItem("cookie");
-    if (cookie == null) 
+    if (cookie === null)
     {
-         localStorage.setItem("cookie", now);
+        localStorage.setItem("cookie", now);
     }
     
-
-
-
     return (
       <Router>
         {/* **********************************FRONT********************************************************** */}
 
         <Suspense fallback={x()}>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-        </Suspense>
+          <Switch>
 
-        <Suspense fallback={x()}>
-          <Route exact path="/category">
-            <MainCategory />
-          </Route>
-        </Suspense>
 
-        <Suspense fallback={x()}>
-          <Route exact path="/product-listing/:name/:id">
-            <Product_listing />
-          </Route>
-        </Suspense>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/category" component={MainCategory} />
 
-        <Suspense
-          fallback={<div className="loader">Loading...............</div>}
-        >
-          <Route exact path="/register">
-            <Register />
-          </Route>
-        </Suspense>
+            <Route exact path="/product-listing" component={AllProduct} />
+            <Route exact path="/product-listing/:id" component={AllProduct} />
+            <Route exact path="/product-listing/:name/:id" component={Product_listing} />
 
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-        </Suspense>
+            <Route exact path="/addtocart/:id/:id" component={Addtocart} />
 
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/addtocart/:id/:id">
-            <Addtocart />
-          </Route>
-        </Suspense>
+            <Route exact path="/checkout" component={Checkout} />
+            <Route exact path="/verifyotp" component={Verifyotp} />
+            <Route exact path="/viewcart" component={Viewcart} />
 
-        <Suspense fallback={x()}>
-          <Route exact path="/product-listing">
-            <AllProduct />
-          </Route>
-        </Suspense>
+            <Route exact path="/admin/login" component={LazyLogin} />
+            <Route exact path="/admin/" component={LazyDashboard} iAdminId={iAdminId} vUserName={vUserName} />
 
-        
-
-        
-
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/login">
-            <LazyLogin />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/">
-            <LazyDashboard iAdminId={iAdminId} vUserName={vUserName} />
-          </Route>
-        </Suspense>
         {/* *********************************USER COMPONENT************************************ */}
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/listing">
-            <LazyListing />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/listing/useradd">
-            <LazyUseradd />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/user/edit/:id">
-            <LazyUser_Edit />
-          </Route>
-        </Suspense>
-        {/* *********************************BANNER COMPONENT************************************ */}
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/banner">
-            <LazyBanner_listing />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/banner/add">
-            <LazyAdd />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/banner/edit/:id">
-            <LazyBanner_edit />
-          </Route>
-        </Suspense>
-        {/* *********************************IMAGE CONTENT COMPONENT************************************ */}
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/image-content">
-            <LazyContentlisting />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/image-add">
-            <LazyAddImage />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/image-content/edit/:id">
-            <LazyImage_content_edit />
-          </Route>
-        </Suspense>
-        {/* *********************************STORIES COMPONENT************************************ */}
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/stories">
-            <LazySrorieslisting />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/stories/add">
-            <LazyAddstories />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/stories/edit/:id">
-            <LazyStories_edit />
-          </Route>
-        </Suspense>
-        {/* *********************************PRODUCT COMPONENT************************************ */}
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/product/listing">
-            <LazyProductlisting />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/product/add">
-            <LazyAddproduct />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/product/edit/:id">
-            <LazyProduct_edit />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/product/variants">
-            <LazyVariant />
-          </Route>
-        </Suspense>
 
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/product-image/:id">
-            <LazyProductImage />
-          </Route>
-        </Suspense>
+            <Route exact path="/admin/listing" component={LazyListing}/>
+            <Route exact path="/admin/listing/useradd" component={LazyUseradd}/>
+            <Route exact path="/admin/user/edit/:id" component={LazyUser_Edit} />
+
+
+        {/* *********************************BANNER COMPONENT************************************ */}
+        <Route exact path="/admin/banner" component={LazyBanner_listing}/>
+        <Route exact path="/admin/banner/add" component={LazyAdd} />
+        <Route exact path="/admin/banner/edit/:id" component={LazyBanner_edit} />
+
+        {/* *********************************IMAGE CONTENT COMPONENT************************************ */}
+        <Route exact path="/admin/image-content" component={LazyContentlisting} />
+        <Route exact path="/admin/image-add" component={LazyAddImage}/>
+        <Route exact path="/admin/image-content/edit/:id" component={LazyImage_content_edit}/>
+
+
+        {/* *********************************STORIES COMPONENT************************************ */}
+
+        <Route exact path="/admin/stories" component={LazySrorieslisting}/>
+        <Route exact path="/admin/stories/add" component={LazyAddstories} />
+        <Route exact path="/admin/stories/edit/:id"  component={LazyStories_edit}/>
+
+        {/* *********************************PRODUCT COMPONENT************************************ */}
+
+
+        <Route exact path="/admin/product/listing"  component={LazyProductlisting}/>
+        <Route exact path="/admin/product/add" component={LazyAddproduct} />
+        <Route exact path="/admin/product/edit/:id" component={LazyProduct_edit}/>
+        <Route exact path="/admin/product/variants" component={LazyVariant} />
+        <Route exact path="/admin/product-image/:id" component={LazyProductImage} />
+
 
         {/* *********************************CATEGORY COMPONENT************************************ */}
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/category/listing">
-            <LazyCategory_listing />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/category/add">
-            <LazyCategory_add />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/category/edit/:id">
-            <LazyCategory_edit />
-          </Route>
-        </Suspense>
+
+
+        <Route exact path="/admin/category/listing" component={LazyCategory_listing} />
+        <Route exact path="/admin/category/add" component={LazyCategory_add} />
+        <Route exact path="/admin/category/edit/:id" component={LazyCategory_edit} />
+
+
         {/* *********************************SUB CATEGORY COMPONENT************************************ */}
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/subcategory/listing">
-            <LazySubcategory_listing />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/subcategory/add">
-            <LazySubcategoryadd />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/subcategory/edit/:id">
-            <LazySubcategory_edit />
-          </Route>
-        </Suspense>
-        {/* *********************************Order COMPONENT************************************ */}
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/order/listing">
-            <LazyOrder_listing />
-          </Route>
-        </Suspense>
-        {/* *********************************Variant COMPONENT************************************ */}
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/variants/listing">
-            <LazyVariants_listing />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/variants/add">
-            <LazyVariants_add />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/variants/edit/:id">
-            <LazyVariants_edit />
-          </Route>
-        </Suspense>
+
+
+        <Route exact path="/admin/subcategory/listing" component={LazySubcategory_listing} />
+          <Route exact path="/admin/subcategory/add" component={LazySubcategoryadd} />
+          <Route exact path="/admin/subcategory/edit/:id" component={LazySubcategory_edit} />
+
+
+         {/* *********************************Order COMPONENT************************************ */}
+
+
+         <Route exact path="/admin/order/listing" component={LazyOrder_listing}/>
+
+
         {/* *********************************Variant Option COMPONENT************************************ */}
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/variant_option/listing">
-            <LazyVariant_option_listing />
-          </Route>
+
+         <Route exact path="/admin/variants/listing" component={LazyVariants_listing} />
+          <Route exact path="/admin/variants/add" component={LazyVariants_add} />
+          <Route exact path="/admin/variants/edit/:id" component={LazyVariants_edit} />
+
+        {/* *********************************Variant Option COMPONENT************************************ */}
+
+        <Route exact path="/admin/variant_option/listing" component={LazyVariant_option_listing} />
+          <Route exact path="/admin/option/add" component={LazyVariant_option_add} />
+          <Route exact path="/admin/option/edit/:id" component={LazyVariant_option_edit} />
+
+            <Route component={PageNotFound} />
+
+          </Switch>
         </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/option/add">
-            <LazyVariant_option_add />
-          </Route>
-        </Suspense>
-        <Suspense fallback={<div>Loading...............</div>}>
-          <Route exact path="/admin/option/edit/:id">
-            <LazyVariant_option_edit />
-          </Route>
-        </Suspense>
-        {/* *********************************USER COMPONENT END************************************ */}
+
+
+
+    
+
       </Router>
     );
   }

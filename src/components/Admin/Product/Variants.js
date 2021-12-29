@@ -9,7 +9,6 @@ import { SketchPicker } from 'react-color';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 class Variants extends React.Component {
-
     state = {
         rows: [{}],
         ArrayVariants: [],
@@ -40,7 +39,7 @@ class Variants extends React.Component {
     {
         this.setState({ OptionArray: []});
         var iVariantsId = e.target.value;
-        // Trigger
+        
         this.option_create(iVariantsId);
         //State
         this.setState({ VariantsId: iVariantsId });
@@ -304,7 +303,15 @@ class Variants extends React.Component {
                                                     </td>
 
                                                     <td>
-                                                        <a onClick={this.handleAddRow} className="btn btn-outline-primary btn-sm">Add Row</a>
+                                                        {
+                                                            VariantsId!=''?
+                                                                <a onClick={this.handleAddRow} className="btn btn-outline-primary btn-sm">Add Row</a>
+                                                            :
+                                                            <></>
+
+                                                        }
+                                                        
+
                                                         <button
                                                             className="btn btn-outline-danger btn-sm"
                                                             onClick={this.handleRemoveSpecificRow(idx)}
@@ -363,7 +370,14 @@ class Variants extends React.Component {
                                                     </td>
 
                                                     <td>
-                                                        <a onClick={this.handleAddRow} className="btn btn-outline-primary btn-sm">Add Row</a>
+                                                        {
+                                                            VariantsId!=''?
+                                                                <a onClick={this.handleAddRow} className="btn btn-outline-primary btn-sm">Add Row</a>
+                                                            :
+                                                            <></>
+                                                        }
+                                                        
+
                                                         <button
                                                             className="btn btn-outline-danger btn-sm"
                                                             onClick={this.handleRemoveSpecificRow(idx)}

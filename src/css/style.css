@@ -335,6 +335,18 @@
   animation-delay: 0.5s;
   background: #faaacc;
 }
+.loding_gif
+{
+  width: 30px;
+  height: 20px;
+}
+.loding_gif_product
+{
+    width: 53px;
+    height: 53px;
+    margin-left: 15px;
+}
+
 @-moz-keyframes slide {
   0% {
     transform: scale(1);

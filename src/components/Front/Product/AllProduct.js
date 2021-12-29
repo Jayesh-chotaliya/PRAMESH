@@ -9,21 +9,84 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { setProductListing, setAddtocartpage} from "../../../redux/actions/productActions";
+import { gsap } from "gsap/all";
+// import { emptyString } from "react-select/dist/declarations/src/utils";
 
 
 // redux / actions / productActions
 
 const AllProduct = () => {
 
-    const [SelectedPrice, setSelectedPrice] = useState("");
+    const [animation, setanimation] = useState(false)
+    const [animation2, setanimation2] = useState(false)
+
+
+    function animeEffect() {
+       if(animation == false){
+           setanimation(true)
+        gsap.fromTo(
+            ".catoFlex",
+            { y: -50, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.5 }
+        );
+       }
+
+       if(animation == true){
+        gsap.fromTo(
+            ".catoFlex",
+            { y: 0, opacity: 1 },
+            { y: -50, opacity: 0, duration: 0.5 }
+        );
+        setanimation(false)
+
+       }
+    }
+
+
+    function animEffect2() {
+        if(animation2 == false){
+            setanimation2(true)
+         gsap.fromTo(
+             ".catoFlex2",
+             { y: -50, opacity: 0 },
+             { y: 0, opacity: 1, duration: 0.5 }
+         );
+        }
+ 
+        if(animation2 == true){
+         gsap.fromTo(
+             ".catoFlex2",
+             { y: 0, opacity: 1 },
+             { y: -50, opacity: 0, duration: 0.5 }
+         );
+         setanimation2(false)
+ 
+        }
+    }
+
+    const [SelectedPrice, setSelectedPrice]         = useState("");
+    const [SelectedCategory, setSelectedCategory]   = useState("");
 
     const dispatch = useDispatch();
     var answer = window.location.href;
     const answer_array = answer.split('/');
+    
+
+    if (answer_array.length==4)
+    {
+        var iCategoryId = '';
+    }
+    else
+    {
+        var iCategoryId = atob(answer_array[4]); 
+    }
+
+    var iCategoryId = '';
+
     // var SubCategoryId = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
 
     if (answer_array[2] == 'localhost:3000') {
-        var product_listing = `http://localhost/pramesh/backend/api/product_listing`;
+        var product_listing = `http://localhost/pramesh/backend/api/product_listing?iCategory=${iCategoryId}@${''}`;
     }
     else {
         var product_listing = `http://pramesh.justcodenow.com/backend/api/product_listing`;
@@ -51,7 +114,6 @@ const AllProduct = () => {
         if (productdata.data.data) {
             dispatch(setAddtocartpage(productdata.data.data));
         }
-
     }
 
 
@@ -63,7 +125,7 @@ const AllProduct = () => {
     
 
     const [Pagenumber, setPagenumber] = useState(0);
-    const usersPerPage = 12;
+    const usersPerPage = 28;
     const pagesvisited = Pagenumber * usersPerPage;
 
     const displayproduct = Product_data.slice(pagesvisited, pagesvisited + usersPerPage)
@@ -146,10 +208,10 @@ const AllProduct = () => {
         setSelectedPrice(Price);
 
         if (answer_array[2] == 'localhost:3000') {
-            var product_listing = `http://localhost/pramesh/backend/api/product_listing?SubCategoryId=${''}@${Price}`;
+            var product_listing = `http://localhost/pramesh/backend/api/product_listing?SubCategoryId=${''}@${Price}@${SelectedCategory}`;
         }
         else {
-            var product_listing = `http://pramesh.justcodenow.com/backend/api/product_listing?SubCategoryId=${''}?Price=${Price}`;
+            var product_listing = `http://pramesh.justcodenow.com/backend/api/product_listing?SubCategoryId=${''}@${Price}@${SelectedCategory}`;
         }
 
         const productdata = await axios.get(product_listing);
@@ -162,8 +224,10 @@ const AllProduct = () => {
     // *****************************************************SUBCATEGORY FILTER********************************************
     const sub_category_filter = async (e) => {
 
-        var iCategory = e.target.value;
-        var Price = SelectedPrice;
+        var iCategory   = e.target.value;
+        setSelectedCategory(iCategory);
+       
+        var Price       = SelectedPrice;
 
         if (answer_array[2] == 'localhost:3000') {
             var product_listing = `http://localhost/pramesh/backend/api/product_listing?iCategory=${iCategory}@${Price}`;
@@ -194,21 +258,23 @@ const AllProduct = () => {
                 {/* ********CATEGORIES SECTION ********** */}
 
                 <section className=" container-fluid categories mb-5">
-                    <div className="dropdown">
+                    <div className="dropdown" >
                         <button
                             className=" myBtn dropdown-toggle"
                             type="button"
-                            id="dropdownMenuButton"
-                            data-toggle="dropdown"
+                            // id="dropdownMenuButton"
+                            // data-toggle="dropdown"
                             aria-haspopup="true"
+                            onClick={animeEffect}
                             aria-expanded="false"
                         >
                             <i className="fa fa-th-large mr-4" aria-hidden="true"></i>
                             Category
                         </button>
+                        
                         <div
-                            className="dropdown-menu "
-                            aria-labelledby="dropdownMenuButton"
+                            className={`mymenu dropdown-menu ${animation ? "" : "d-none"}` }
+                            // aria-labelledby="dropdownMenuButton"
                         >
                             <div className="catoFlex">
                                 <div className="price">
@@ -307,16 +373,19 @@ const AllProduct = () => {
                         <button
                             className="myBtn dropdown-toggle"
                             type="button"
-                            id="dropdownMenuButton"
-                            data-toggle="dropdown"
+                            // id="dropdownMenuButton"
+                            // data-toggle="dropdown"
+                            onClick={animEffect2}
                             aria-haspopup="true"
                             aria-expanded="false"
                         >
                             <i className="fa fa-exchange mr-4" aria-hidden="true"></i>
                             SORT BY
                         </button>
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <div className="catoFlex">
+                        <div  className={`mymenu dropdown-menu ${animation2 ? "" : "d-none"}` }
+                        // aria-labelledby="dropdownMenuButton"
+                        >
+                            <div className="catoFlex catoFlex2">
                                 <div className="flex cflex">
                                     <div class="pretty p-icon p-smooth">
                                         <input type="radio" onClick={filterclick} name="trending" id="highest" />

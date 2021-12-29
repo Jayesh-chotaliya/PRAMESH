@@ -31,11 +31,13 @@ const Addproduct = () => {
     const [ArrayOption, setArrayOption]         = useState([]);
     const [Status, setStatus]                   = useState('inActive');
     const [StatusHomepage, setStatusHomepage]   = useState('2');
+    const [Gif, setGif]                         = useState(false);
+
 
     const [errorProduct, setErrroProduct]   = useState("");
     const [errorImage, setErrroImage]       = useState("");
     const [VariantsError, setVariantsError] = useState("");
-    const [DescError, setDescError] = useState("");
+    const [DescError, setDescError]         = useState("");
     const [MoredescError, setMoredescError] = useState("");
     const [MultipleImage, setMultipleImage] = useState([]);
     
@@ -117,10 +119,11 @@ const Addproduct = () => {
     
         if (Product && Image.length > 0 && CategoryId && SubCategory_id && Desc && Moredesc)
         {
-           
+            setGif(true);
             const dataa = axios.post(url, data)
                 .then(res => {
                     if (res.data.Status == '0') {
+                        setGif(false);
                         toast.success(res.data.message, {
                             position: "top-center",
                             autoClose: 5000,
@@ -136,6 +139,7 @@ const Addproduct = () => {
                         }, 2000);
                     }
                     else {
+                        setGif(false);
                         toast.error(res.data.message, {
                             position: "top-center",
                             autoClose: 5000,
@@ -352,13 +356,18 @@ const Addproduct = () => {
 
                                                 <div className="col-lg-12">
                                                     <div className="form-group">
-                                                        {/* <button type="submit" className="btn  btn-primary">Submit</button> */}
-
                                                         <input type="submit" className="btn  btn-primary" value="Submit"/>
+                                                       
 
                                                         <Link to='/admin/product/listing'>
                                                             <a><button type="button" className="btn btn-warning">Back</button></a>
                                                         </Link>
+                                                        {
+                                                            Gif == true ?
+                                                                <img className="loding_gif_product" src={process.env.PUBLIC_URL + "/Images/3.gif"} alt="img" />
+                                                                :
+                                                                <></>
+                                                        }
                                                     </div>
                                                     <ToastContainer
                                                         position="top-right"

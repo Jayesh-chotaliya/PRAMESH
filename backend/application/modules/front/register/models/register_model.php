@@ -46,6 +46,21 @@ class Register_model extends CI_Model
         $this->db->insert($this->table_addtocart, $data);
         return $this->db->insert_id();
     }
+    public function get_by_all_addtocart_data($cookiedata='',$iUserId='')
+    {
+        $this->db->from($this->table_addtocart.' t');
+        if(!empty($cookiedata) && $iUserId=='null')
+        {
+            $this->db->where('t.vCookie',$cookiedata);
+        }
+        if($iUserId!='null')
+        {
+            $this->db->where('t.iUserId',$iUserId);
+        }
+        $query=$this->db->get();
+        $data = $query->result();
+        return $data;
+    }
 
     public function get_by_email($vEmail)
     { 
@@ -55,6 +70,15 @@ class Register_model extends CI_Model
         $data = $query->num_rows();
         return $data;
     }
+    public function get_by_otp($vOTP)
+    { 
+        $this->db->from($this->table);
+        $this->db->where('vOTP',$vOTP);
+        $query=$this->db->get();
+        $data = $query->row();
+        return $data;
+    }
+
     public function get_by_email_password($vEmail,$vPassword)
     { 
     
@@ -65,7 +89,27 @@ class Register_model extends CI_Model
         $data = $query->row();
         return $data;
     }
-     // ***************************USE Function END****************************************
+
+    public function update_addtocart($where, $data)
+    {
+        $this->db->update($this->table_addtocart, $data, $where);
+        return $this->db->affected_rows();
+    }
+
+    public function delete_by_addtocart_product($iAddtocartId)
+    {
+        $this->db->where('iAddtocartId', $iAddtocartId);
+        return $this->db->delete($this->table_addtocart);
+    }
+
+    public function update($where, $data)
+    {
+        $this->db->update($this->table, $data, $where);
+        return $this->db->affected_rows();
+    }
+
+    
+    // ***************************USE Function END****************************************
     
     // public function get_by_all_category()
     // {   
