@@ -8,10 +8,60 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 import { setProductListing } from "../../../redux/actions/productActions";
+import { Link } from "react-router-dom";
+import { gsap } from "gsap/all";
 
 const Product_listing = () => {
 
+    const [animation, setanimation] = useState(false)
+    const [animation2, setanimation2] = useState(false)
+
+
+    function animeEffect() {
+       if(animation == false){
+           setanimation(true)
+        gsap.fromTo(
+            ".catoFlex",
+            { y: -50, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.5 }
+        );
+       }
+
+       if(animation == true){
+        gsap.fromTo(
+            ".catoFlex",
+            { y: 0, opacity: 1 },
+            { y: -50, opacity: 0, duration: 0.5 }
+        );
+        setanimation(false)
+
+       }
+    }
+
+
+    function animEffect2() {
+        if(animation2 == false){
+            setanimation2(true)
+         gsap.fromTo(
+             ".catoFlex2",
+             { y: -50, opacity: 0 },
+             { y: 0, opacity: 1, duration: 0.5 }
+         );
+        }
+ 
+        if(animation2 == true){
+         gsap.fromTo(
+             ".catoFlex2",
+             { y: 0, opacity: 1 },
+             { y: -50, opacity: 0, duration: 0.5 }
+         );
+         setanimation2(false)
+ 
+        }
+    }
+
     const [SelectedPrice, setSelectedPrice] = useState("");
+    const [SelectedCategory, setSelectedCategory] = useState("");
 
     const dispatch = useDispatch();
     var answer = window.location.href;
@@ -78,8 +128,10 @@ const Product_listing = () => {
                                 }
                                 return (
                                     <>
+                                    <Link to={`/addtocart/${btoa(Pimg.iProductId)}/${btoa(product.vPrice)}`}>
                                         <img src={Pimg.vImage} className={`img-fluid catoImg ${imagestyle}`}
                                         alt="Image" />
+                                    </Link>
                                     
                                 </>
                                 )
@@ -128,10 +180,10 @@ const Product_listing = () => {
 
         if (answer_array[2] == 'localhost:3000') 
         {   
-            var product_listing = `http://localhost/pramesh/backend/api/product_listing?SubCategoryId=${SubCategoryId}@${Price}`;
+            var product_listing = `http://localhost/pramesh/backend/api/product_listing?SubCategoryId=${SubCategoryId}@${Price}@${SelectedCategory}`;
         }
         else {
-            var product_listing = `http://pramesh.justcodenow.com/backend/api/product_listing?SubCategoryId=${SubCategoryId}?Price=${Price}`;
+            var product_listing = `http://pramesh.justcodenow.com/backend/api/product_listing?SubCategoryId=${SubCategoryId}@${Price}@${SelectedCategory}`;
         }
 
         const productdata = await axios.get(product_listing);
@@ -145,6 +197,7 @@ const Product_listing = () => {
     const sub_category_filter = async (e) => {
 
         var iCategory = e.target.value;
+        setSelectedCategory(iCategory);
         var Price = SelectedPrice;
       
     
@@ -179,19 +232,21 @@ const Product_listing = () => {
                 <section className=" container-fluid categories mb-5">
                     <div className="dropdown">
                         <button
-                            className=" myBtn dropdown-toggle"
+                            className=" myBtn   dropdown-toggle"
                             type="button"
-                            id="dropdownMenuButton"
-                            data-toggle="dropdown"
+                            // id="dropdownMenuButton"
+                            onClick={animeEffect}
+                            // data-toggle="dropdown"
                             aria-haspopup="true"
                             aria-expanded="false"
+                            
                         >
                             <i className="fa fa-th-large mr-4" aria-hidden="true"></i>
                             Category
                         </button>
                         <div
-                            className="dropdown-menu "
-                            aria-labelledby="dropdownMenuButton"
+                             className={`mymenu dropdown-menu ${animation ? "" : "d-none"}` }
+                            // aria-labelledby="dropdownMenuButton"
                         >
                             <div className="catoFlex">
                                 <div className="price">
@@ -250,36 +305,6 @@ const Product_listing = () => {
                                                 </div>)
                                             })
                                         }
-                                        
-
-                                        {/* <div class="pretty p-icon p-smooth">
-                                            <input type="checkbox" name="artsilk" id="artsilk" />
-                                            <div class="state p-maroon">
-                                                <i class="icon fa fa-check"></i>
-                                                <label htmlFor="artsilk"> ART SILK</label>
-                                            </div>
-                                        </div>
-                                        <div class="pretty p-icon p-smooth">
-                                            <input type="checkbox" name="cotton" id="cotton" />
-                                            <div class="state p-maroon">
-                                                <i class="icon fa fa-check"></i>
-                                                <label htmlFor="cotton">COTTON SILK</label>
-                                            </div>
-                                        </div>
-                                        <div class="pretty p-icon p-smooth">
-                                            <input type="checkbox" name="banarasi" id="banarasi" />
-                                            <div class="state p-maroon">
-                                                <i class="icon fa fa-check"></i>
-                                                <label htmlFor="banarasi">BANARASI SILK</label>
-                                            </div>
-                                        </div>
-                                        <div class="pretty p-icon p-smooth">
-                                            <input type="checkbox" name="gaji" id="gaji" />
-                                            <div class="state p-maroon">
-                                                <i class="icon fa fa-check"></i>
-                                                <label htmlFor="gaji">GAJI SILK</label>
-                                            </div>
-                                        </div> */}
                                     </div>
                                 </div>
                             </div>
@@ -290,15 +315,18 @@ const Product_listing = () => {
                         <button
                             className="myBtn dropdown-toggle"
                             type="button"
-                            id="dropdownMenuButton"
-                            data-toggle="dropdown"
+                            // id="dropdownMenuButton"
+                            // data-toggle="dropdown"
+                            onClick={animEffect2}
                             aria-haspopup="true"
                             aria-expanded="false"
                         >
                             <i className="fa fa-exchange mr-4" aria-hidden="true"></i>
                             SORT BY
                         </button>
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div  className={`mymenu dropdown-menu ${animation2 ? "" : "d-none"}` }
+                        //  aria-labelledby="dropdownMenuButton"
+                         >
                             <div className="catoFlex">
                                 <div className="flex cflex">
                                     <div class="pretty p-icon p-smooth">

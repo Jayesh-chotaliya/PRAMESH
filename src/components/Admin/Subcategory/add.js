@@ -12,7 +12,8 @@ const Subcategoryadd = () => {
     const [Category, setCategory]       = useState([]);
     const [Category_v, setCategory_v]   = useState("");
     const [Title, setTitle]             = useState("");
-    
+    const [Gif, setGif]                 = useState(false);
+
     const [ProductType, setProductType] = useState("0");
     const [Status, setStatus]           = useState("Inactive");
     const [TitleError, setTitleError]   = useState("");
@@ -57,9 +58,11 @@ const Subcategoryadd = () => {
 
         if (Title && Category_v)
         {
+            setGif(true);
             const dataa = axios.post(url, fd)
                 .then(res => {
                     if (res.data.Status == '0') {
+                        setGif(false);
                         toast.success(res.data.message, {
                             position: "top-center",
                             autoClose: 5000,
@@ -75,6 +78,7 @@ const Subcategoryadd = () => {
                         }, 2000);
                     }
                     else {
+                        setGif(false);
                         toast.error(res.data.message, {
                             position: "top-center",
                             autoClose: 5000,
@@ -181,7 +185,14 @@ const Subcategoryadd = () => {
 
                                                 <div className="col-lg-12">
                                                     <div className="form-group">
-                                                        <button type="button" onClick={addcategory} className="btn  btn-primary">Submit</button>
+                                                        <button type="button" onClick={addcategory} className="btn  btn-primary">
+                                                            {
+                                                                Gif == true ?
+                                                                    <img className="loding_gif" src={process.env.PUBLIC_URL + "/Images/3.gif"} alt="img" />
+                                                                    :
+                                                                    <>Submit</>
+                                                            }
+                                                        </button>
                                                         <Link to='/admin/subcategory/listing'>
                                                             <a><button type="button" className="btn btn-warning">Back</button></a>
                                                         </Link>

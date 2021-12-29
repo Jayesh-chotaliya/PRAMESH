@@ -10,5 +10,7 @@ export const Actiontype = {
     HEADER                      : "HEADER",
     PRODUCT_LISTING             : "PRODUCT_LISTING",
     ADDTOCARTPAGE               : "ADDTOCARTPAGE",
+    ADDTOCARTSAVEDATA           : "ADDTOCARTSAVEDATA",
+    ADDTOCARTSUBTOTAL           : "ADDTOCARTSUBTOTAL",
 
 }

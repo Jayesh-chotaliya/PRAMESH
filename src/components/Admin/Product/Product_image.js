@@ -13,7 +13,8 @@ const Product_image = () => {
     var answer = window.location.href;
     const answer_array = answer.split("/");
     const p = answer_array[4];
-    const [Image, setImage] = useState([]);
+    const [Image, setImage]     = useState([]);
+    const [Gif, setGif]         = useState(false);
     var iProductId = window.location.pathname.substring(
         window.location.pathname.lastIndexOf("/") + 1
     );
@@ -109,14 +110,15 @@ const Product_image = () => {
     }
 
     const handleSubmit = (event) => {
+        setGif(true);
         event.preventDefault();
         const data = new FormData(event.target);
 
         const dataa = axios
             .post(url, data)
             .then((res) => {
-                console.log(res.data.Status);
                 if (res.data.Status == "0") {
+                    setGif(false);
                     toast.success(res.data.message, {
                         position: "top-center",
                         autoClose: 5000,
@@ -132,6 +134,7 @@ const Product_image = () => {
                         history.push(path);
                     }, 1000);
                 } else {
+                    setGif(false);
                     toast.error(res.data.message, {
                         position: "top-center",
                         autoClose: 5000,
@@ -241,6 +244,12 @@ const Product_image = () => {
                                                                 </button>
                                                             </a>
                                                         </Link>
+                                                        {
+                                                            Gif == true ?
+                                                                <img className="loding_gif_product" src={process.env.PUBLIC_URL + "/Images/3.gif"} alt="img" />
+                                                                :
+                                                                <></>
+                                                        }
                                                     </div>
                                                     <ToastContainer
                                                         position="top-right"
@@ -303,7 +312,7 @@ const Product_image = () => {
                                                                 onClick={image_delele}
                                                                 className="closeBtn"
                                                             >
-                                                            <i id={`${image.iImageId}`} className=" fa fa-close  red "  style = {{fontSize : "1rem"}}></i>{" "}
+                                                            <i id={`${image.iImageId}`} className=" fa fa-times  red "  style = {{fontSize : "1rem"}}></i>{" "}
                                                             </span>
                                                         </div>
                                                     </>

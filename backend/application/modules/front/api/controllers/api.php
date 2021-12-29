@@ -1642,11 +1642,14 @@ class Api extends MX_Controller
 	}
 	public function product_listing()
 	{	
+
 		$category_price 	= $_GET['category'];
 		$SortByFilter   	= explode("@@",$_GET['SortByFilter']);
 		$subcate_andprice 	= explode("@",$_GET['SubCategoryId']);
 		$Category 			= explode("@",$_GET['iCategory']);
 
+
+		// *************Price wise and Category wise filter Proccess******************
 		if(!empty($subcate_andprice[0]))
 		{
 			$SubCategoryId 	= $subcate_andprice[0];
@@ -1656,6 +1659,12 @@ class Api extends MX_Controller
 		{
 			$Price 			= $subcate_andprice[1];
 		}
+		
+		if(!empty($subcate_andprice[2]))
+		{
+			$iCategoryId   = $subcate_andprice[2];
+		}
+		// *************Price wise filter Proccess******************
 
 		if(!empty($SortByFilter[0]))
 		{
@@ -1676,8 +1685,8 @@ class Api extends MX_Controller
 			$Price 	   = $Category[1];
 		}
 
-		$result   = $this->product_model->get_by_all_product_listing($SubCategoryId,$Price,$OrderBy,$iCategoryId);
 
+		$result   = $this->product_model->get_by_all_product_listing($SubCategoryId,$Price,$OrderBy,$iCategoryId);
 
 		$countArray = array();
 		foreach($result as $value)
@@ -1776,7 +1785,7 @@ class Api extends MX_Controller
         $data['vPassword']           		= md5($_POST['vPassword']);
         $data['dtAddedDate']            	= date("Y-m-d h:i:s");
         $data['dtUpdatedDate']            	= date("Y-m-d h:i:s");
-        $data['eStatus']            		= 'Inactive';
+        $data['eStatus']            		= 'Active';
 		
 		$result   = $this->register_model->add($data);
 		if($result)
@@ -1798,7 +1807,6 @@ class Api extends MX_Controller
         $vEmail           			= $_POST['vEmail'];
 		$result   = $this->register_model->get_by_email($vEmail);
 
-	
 		if($result==1)
 		{
 			$data = array();
@@ -1817,15 +1825,26 @@ class Api extends MX_Controller
 
 	public function login_user()
 	{	
+		
         $vEmail           			= $_POST['vEmail'];
         $vPassword           		= md5($_POST['vPassword']);
-
+		$vCookie           			= $_POST['vCookie'];
+	
 		$result   = $this->register_model->get_by_email_password($vEmail,$vPassword);
 
+	
 		if(count($result) > 0)
 		{
 			if($result->eStatus=='Active')
 			{
+				if(!empty($vCookie))
+				{
+					$where = array('vCookie'=>$vCookie);
+					$data_update['vCookie'] 	= '';
+					$data_update['iUserId']		= $result->iUserId;
+					$this->register_model->update_addtocart($where,$data_update);
+				}
+
 				$data = array();
 				$data['Status'] 		= '0';
 				$data['message'] 		= 'Login Successfully';
@@ -1852,21 +1871,55 @@ class Api extends MX_Controller
 
 	public function addtocart()
 	{	
-		///////////jayesh change 6:41
+		$vPrice 	= $_POST['vPrice'];
+		$vQty    	= $_POST['vQty'];
+		$vTotal   	= $vPrice * $vQty;
+		$iUserId   	= $_POST['iUserId'];
+
  	    $data['iProductId']              	= $_POST['iProductId'];
         $data['vProductName']       		= $_POST['vProductName'];
         $data['vPrice']           			= $_POST['vPrice'];
-		$data['vCookie'] 					= $_POST['vCookie'];
+		$data['vTotal']						= $vTotal;
+		if(!empty($iUserId) && $iUserId!='null')
+		{
+			$data['iUserId'] 		       = $iUserId;
+		}
+		else
+		{
+			$data['vCookie'] 			   = $_POST['vCookie'];
+		}
+		
         $data['vImage']           			= $_POST['vImage'];
         $data['vQty']            			= $_POST['vQty'];
 		$data['dtAddedDate']            	= date("Y-m-d h:i:s");
 		
-	
 		$result   = $this->register_model->add_to_cart($data);
 		if($result)
-		{
+		{	
+			// ********************ADDTOCART DATA GET PROCCESS IN CART TO DISPLAY****************
+			$cookiedata = '';
+			if($iUserId=='null')
+			{
+				$cookiedata = $_POST['vCookie'];
+			}
+			else if(!empty($iUserId))
+			{
+				$iUserId = $iUserId;
+			}
+			
+			
+			$addtocart = $this->register_model->get_by_all_addtocart_data($cookiedata,$iUserId);
+			$Subtotal = array();
+			foreach($addtocart as $key => $value)
+			{	
+				array_push($Subtotal,$value->vTotal);
+			}
+			// ********************ADDTOCART DATA GET PROCCESS IN CART TO DISPLAY END ****************
+
 			$data = array();
 			$data['Status'] 		= '0';
+			$data['data']           = $addtocart;
+			$data['subtotal']		= array_sum($Subtotal);
 		}
 		else
 		{
@@ -1877,4 +1930,251 @@ class Api extends MX_Controller
 		exit;
 	}
 
+	public function addtocartdataget()
+	{
+		$useridcookie   	= explode("@@",$_GET['cookie']);
+		$cookie           	= $useridcookie[0];
+		$iUserId           	= $useridcookie[1];
+
+		$cookiedata  				= "";
+		if($iUserId=='null')
+		{
+			$cookiedata = $cookie;
+
+		}
+		if(!empty($iUserId) && $iUserId!='null')
+		{
+			$iUserId = $iUserId;
+		}
+
+		$result   = $this->register_model->get_by_all_addtocart_data($cookiedata,$iUserId);
+		if(count($result)>0)
+		{
+			$Subtotal = array();
+			foreach($result as $key => $value)
+			{	
+				array_push($Subtotal,$value->vTotal);
+			}
+			$data = array();
+			$data['Status'] 		= '1';
+			$data['data'] 			= $result;
+			$data['subtotal']		= array_sum($Subtotal);
+		}
+		else
+		{
+			$data = array();
+			$data['Status'] 		= '0';
+		}
+		echo json_encode($data);
+		exit;
+	}
+
+	public function addtocartdelete()
+	{	
+		$iAddtocartId  	= $this->input->post('iAddtocartId');
+		$vCookie  		= $this->input->post('vCookie');
+		$iUserId  		= $this->input->post('iUserId');
+
+		$id = $this->register_model->delete_by_addtocart_product($iAddtocartId);
+
+		$cookiedata		= '';
+		if(empty($iUserId) && $iUserId!="null")
+		{
+			$cookiedata = $cookie;
+		}
+		else if(!empty($iUserId))
+		{
+			$iUserId = $iUserId;
+		}
+		sleep(1);
+		$addtocart = $this->register_model->get_by_all_addtocart_data($cookiedata,$iUserId);
+		$Subtotal = array();
+		foreach($addtocart as $key => $value)
+		{	
+			array_push($Subtotal,$value->vTotal);
+		}
+
+		if($id)
+		{
+			$data['Status']     = '0';
+			$data['data']		= $this->register_model->get_by_all_addtocart_data($cookiedata,$iUserId);
+			$data['subtotal']   = array_sum($Subtotal);
+		}
+		else
+		{
+			$data['Status']     = '1';	
+		}
+		echo json_encode($data);
+	}
+
+	public function reset_password_email_check()
+	{	
+		ini_set("mail.log", "/tmp/mail.log");
+    	ini_set("mail.add_x_header", TRUE);
+
+    	$code = rand(10000,99999);
+
+        $vEmail           			= $_POST['vEmail'];
+		$result   = $this->register_model->get_by_email($vEmail);
+
+		if(count($result)>0)
+		{
+			$to         = $vEmail;
+			$subject    = $code."   is your Pramesh";
+			$Templet    = '<html>
+						<body marginheight="0" marginwidth="0" leftmargin="0" topmargin="0" bgcolor="#e9e1e1">
+						<table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td bgcolor="#e9e1e1" align="center">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+										<tr>
+											<td align="center" valign="top" style="padding: 40px 10px 40px 10px;"> </td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td  align="center" style="padding: 0px 10px 0px 10px;">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+										<tr>
+											<td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: "Lato", Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
+												<h1 style="font-size: 48px; font-weight: 400; margin: 2;">Welcome!</h1> <img src="http://pramesh.justcodenow.com/Images/logo.png" width="125" height="120" style="display: block; border: 0px;" />
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td bgcolor="#e1e1e1" align="center" style="padding: 0px 10px 0px 10px;">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+										<tr>
+											<td bgcolor="#ffffff" align="left">
+												<table width="100%" border="0" cellspacing="0" cellpadding="0">
+													<tr>
+														<td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
+															<table border="0" cellspacing="0" cellpadding="0">
+															<tr>
+																<td><h3>Hi,</h3></td>
+															</tr>
+																<tr>
+																<td align="center"><h3>Please enter this verification code in the Website:</td>
+																</tr>
+																<tr>
+																	<td align="center" style="border-radius: 3px;"><a href="#" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #100202; text-decoration: none; color: block; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #1746e0; display: inline-block;">'.$code.'</a></td>
+																</tr>
+																<tr>
+																	<td align="center" style="padding:15px;margin-top:5px;"><h4>Verification code expires in 30 minutes</h4></td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr> 
+									</table>
+								</td>
+							</tr>
+						</table></body></html>';
+			
+			$headers  = "From:   jayeshchotaliya0@gmail.com";
+			$headers .= ''."\r\n";
+			$headers .="Content-Type: text/html;\n\tcharset=\"iso-8859-1\"\n";
+
+			mail($to,$subject,$Templet,$headers);
+			sleep(4);
+
+			$where = array('vEmail'=>$vEmail);
+			$data_update['vOTP'] 	= $code;
+			$data_update['dtOTPDate'] = date("Y-m-d h:i s");
+			$this->register_model->update($where,$data_update);
+
+			$data = array();
+			$data['Status'] 		= '0';
+		}
+		else
+		{
+			$data = array();
+			$data['Status'] 		= '1';
+			$data['message']		= 'Email Address Does Not Exist';	
+		}
+		
+		echo json_encode($data);
+		exit;
+	}
+
+	public function otp_verify()
+	{	
+        $vOTP           			= $_POST['vOTP'];
+		$result   = $this->register_model->get_by_otp($vOTP);
+
+		if(count($result)>0)
+		{
+			$otpdate 	= $result->dtOTPDate;
+			$vEmail  	= $result->vEmail;
+			$date       = strtotime($otpdate);
+			$date       = strtotime("+30 minute", $date);
+			$date_otp   = date('Y-m-d H:i:s', $date);
+
+			$current_time = date("Y-m-d h:i s"); 
+
+			if($date_otp > $current_time)
+            {	
+				$where = array('vEmail'=>$vEmail);
+				$data_update['vOTP'] 		= '';
+				$data_update['dtOTPDate'] 	= '';
+				$this->register_model->update($where,$data_update);
+
+				$data = array();
+				$data['Status'] 		= '0';
+				$data['iUserId'] 		= $result->iUserId;
+			}
+			else
+			{
+				$data = array();
+				$data['Status'] 		= '1';
+				$data['message']		= 'OTP code has expired!';	
+			}
+	
+		}
+		else
+		{
+			$data = array();
+			$data['Status'] 		= '1';
+			$data['message']		= 'OTP Does Not Exist';	
+		}
+		
+		echo json_encode($data);
+		exit;
+
+	}
+
+	public function password_update()
+	{	
+        $iUserId           			= $_POST['UserId'];
+        $vPassword           		= $_POST['vPassword'];
+		
+		if(!empty($iUserId) && !empty($vPassword))
+		{
+			$where = array('iUserId'=>$iUserId);
+			$data_update['vPassword'] 		= md5($vPassword);
+			$id = $this->register_model->update($where,$data_update);
+			
+			if($id)
+			{
+				$data = array();
+				$data['Status'] 		= '0';
+				$data['message']		= 'Password Updated Successfully';	
+			}
+			else
+			{
+				$data = array();
+				$data['Status'] 		= '1';
+				$data['message']		= 'OTP code has expired!';	
+			}
+		}
+	
+		echo json_encode($data);
+		exit;
+
+	}
 }

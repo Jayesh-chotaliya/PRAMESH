@@ -18,6 +18,7 @@ const Useradd = () =>
   const [Email, setEmail]         = useState("");
   const [Password, setPassword]   = useState("");
   const [Status, setStatus]       = useState("");
+  const [Gif, setGif]             = useState(false);
 
   const [ErrorFirstName, setErrorFirstname]   = useState("");
   const [ErrorLastName, setErrorLastname]     = useState("");
@@ -87,6 +88,7 @@ const Useradd = () =>
 
         if(FirstName && LastName && Password)
         {
+          setGif(true);
           var answer = window.location.href;
           const answer_array = answer.split('/');
 
@@ -99,6 +101,7 @@ const Useradd = () =>
           const dataa = axios.post(url, fd)
           .then(res => {
             if (res.data.Status == '0') {
+              setGif(false);
               toast.success(res.data.message, {
                 position: "top-center",
                 autoClose: 5000,
@@ -195,8 +198,17 @@ const Useradd = () =>
                     </div>
                     <div className="col-lg-12">
                         <div className="form-group">
-                              <button type="button" onClick={adduserdata} className="btn  btn-primary">Submit</button>
+                              <button type="button" onClick={adduserdata} className="btn  btn-primary">
+                                {
+                                  Gif==true ?
+                                    <img className="loding_gif" src={process.env.PUBLIC_URL + "/Images/3.svg"} alt="img" />
+                                  :
+                                  <>Submit</>
+                                }
+                              </button>
                               <Link to="/admin/listing">
+
+
                                 <a><button type="button" className="btn btn-warning">Back</button></a>
                               </Link>
                              

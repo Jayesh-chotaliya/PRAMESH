@@ -12,17 +12,19 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Stories_edit = () => {
     let history = useHistory();
-    const [Title, setTitle] = useState("");
-    const [Status, setStatus] = useState('inActive');
-    const [Image, setImage] = useState("");
-    const [Video, setVideo] = useState("");
+    const [Title, setTitle]         = useState("");
+    const [Status, setStatus]       = useState('inActive');
+    const [Image, setImage]         = useState("");
+    const [Video, setVideo]         = useState("");
     const [LiveVideo, setLiveVideo] = useState("");
-    const [Desc, setDesc] = useState("");
+    const [Desc, setDesc]           = useState("");
+    const [Gif, setGif]             = useState(false);
 
-    const [errorTitle, setErrroTitle] = useState("");
-    const [errorImage, setErrroImage] = useState("");
-    const [errorVideo, setErrroVideo] = useState("");
-    const [errorDesc, setErrroDesc] = useState("");
+
+    const [errorTitle, setErrroTitle]   = useState("");
+    const [errorImage, setErrroImage]   = useState("");
+    const [errorVideo, setErrroVideo]   = useState("");
+    const [errorDesc, setErrroDesc]     = useState("");
     var iStoriesId = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
 
     let images = [];
@@ -89,9 +91,11 @@ const Stories_edit = () => {
         fd.append('iStoriesId', iStoriesId);
         
         if (Title && Desc) {
+            setGif(true);
             const dataa = axios.post(url, fd)
                 .then(res => {
                     if (res.data.Status == '0') {
+                        setGif(false);
                         toast.success(res.data.message, {
                             position: "top-center",
                             autoClose: 5000,
@@ -107,6 +111,7 @@ const Stories_edit = () => {
                         }, 1000);
                     }
                     else {
+                        setGif(false);
                         toast.error(res.data.message, {
                             position: "top-center",
                             autoClose: 5000,
@@ -254,7 +259,14 @@ const Stories_edit = () => {
 
                                                 <div className="col-lg-12">
                                                     <div className="form-group">
-                                                        <button type="button" onClick={addstories} className="btn  btn-primary">Submit</button>
+                                                        <button type="button" onClick={addstories} className="btn  btn-primary">
+                                                            {
+                                                                Gif == true ?
+                                                                    <img className="loding_gif" src={process.env.PUBLIC_URL + "/Images/3.gif"} alt="img" />
+                                                                    :
+                                                                    <>Submit</>
+                                                            }
+                                                        </button>
                                                         <Link to='/admin/stories'>
                                                             <a><button type="button" className="btn btn-warning">Back</button></a>
                                                         </Link>

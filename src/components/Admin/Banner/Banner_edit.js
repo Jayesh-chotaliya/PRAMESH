@@ -10,12 +10,13 @@ import { useParams } from "react-router";
 
 const Banner_edit = () => {
     let history = useHistory();
-    const [Title, setTitle] = useState("");
-    const [Image, setImage] = useState("");
-    const [Order, setOrder] = useState("");
-    const [Desc, setDesc] = useState("");
-    const [Status, setStatus] = useState("");
-    const [BannerType, setBannerType] = useState("");
+    const [Title, setTitle]             = useState("");
+    const [Image, setImage]             = useState("");
+    const [Order, setOrder]             = useState("");
+    const [Desc, setDesc]               = useState("");
+    const [Status, setStatus]           = useState("");
+    const [BannerType, setBannerType]   = useState("");
+    const [Gif, setGif]                 = useState(false);
     
 
     const [TitleError, setTitleError] = useState("");
@@ -72,9 +73,11 @@ const Banner_edit = () => {
         fd.append('vBannerType', BannerType);
         fd.append('iBannerId', iBannerId);
         if (Title && Image && Desc) {
+            setGif(true);
             const dataa = axios.post(url, fd)
                 .then(res => {
                     if (res.data.Status == '0') {
+                        setGif(false);
                         toast.success(res.data.message, {
                             position: "top-center",
                             autoClose: 5000,
@@ -90,6 +93,7 @@ const Banner_edit = () => {
                         }, 2000);
                     }
                     else {
+                        setGif(false);
                         toast.error(res.data.message, {
                             position: "top-center",
                             autoClose: 5000,
@@ -237,7 +241,15 @@ const Banner_edit = () => {
 
                                                 <div className="col-lg-12">
                                                     <div className="form-group">
-                                                        <button type="button" onClick={addbanner} className="btn  btn-primary">Submit</button>
+                                                        <button type="button" onClick={addbanner} className="btn  btn-primary">
+                                                            {
+                                                                Gif == true ?
+                                                                    <img className="loding_gif" src={process.env.PUBLIC_URL + "/Images/3.gif"} alt="img" />
+                                                                    :
+                                                                    <>Submit</>
+                                                            }
+
+                                                        </button>
                                                         <Link to='/admin/banner'>
                                                             <a><button type="button" className="btn btn-warning">Back</button></a>
                                                         </Link>

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Swal from 'sweetalert2'
 import { useHistory } from "react-router";
 import axios from "axios";
+import { gsap } from "gsap";
+
 const Login = () => {
     let history = useHistory();
     var answer = window.location.href;
@@ -14,6 +16,8 @@ const Login = () => {
 
     const [Password, setPassword]           = useState("");
     const [ErrorPassword, setErrorPassword] = useState("");
+
+    const [ResetEmail, setResetEmail] = useState("");
 
     const [Remember, setRemember] = useState("");
 
@@ -28,6 +32,19 @@ const Login = () => {
             return false;
         }
     }
+    // ************************Reset Password Email Check********************************
+    function validateResetEmail() {
+        var emailText = document.getElementById('resetemail').value;
+        var pattern = /^[a-zA-Z0-9\-_]+(\.[a-zA-Z0-9\-_]+)*@[a-z0-9]+(\-[a-z0-9]+)*(\.[a-z0-9]+(\-[a-z0-9]+)*)*\.[a-z]{2,4}$/;
+        if (pattern.test(emailText)) {
+            setErrorEmail('');
+            return true;
+        } else {
+            setErrorEmail("Invalid email address : " + emailText);
+            return false;
+        }
+    }
+
 
     const something = (event) => {
         if (event.keyCode === 13) {
@@ -58,10 +75,11 @@ const Login = () => {
             else {
                 var register = 'http://pramesh.justcodenow.com/backend/api/login_user';
             }
-
+            var cookie = localStorage.getItem("cookie");
             const fd = new FormData();
             fd.append('vEmail', Email);
             fd.append('vPassword', Password);
+            fd.append('vCookie', cookie);
 
             const dataa = axios.post(register, fd)
                 .then(res => {
@@ -69,6 +87,7 @@ const Login = () => {
                         localStorage.setItem("iUserId", res.data.data.iUserId);
                         localStorage.setItem("vFirstName", res.data.data.vFirstName);
                         localStorage.setItem("vLastName", res.data.data.vLastName);
+                        localStorage.removeItem("cookie");
                         Swal.fire(
                             'Good job!',
                              res.data.message,
@@ -92,6 +111,56 @@ const Login = () => {
         }
     }
 
+    const [show, setshow] = useState(false)
+
+    const forgot = () => {
+        if (show == false) {
+            setshow(true);
+            gsap.fromTo(
+                ".resetpass",
+                { opacity: 0 },
+                { opacity: 1, duration: 2 }
+            );
+        }
+        if (show == true) {
+            setshow(false);
+            gsap.fromTo(
+                ".registerForm",
+                { opacity: 0 },
+                { opacity: 1, duration: 2 }
+            );
+        }
+    };
+
+    const ResetPassword = () =>
+    {
+        var Emaildata = validateResetEmail();
+        if (Emaildata == true && ResetEmail) {
+            if (answer_array[2] == 'localhost:3000') {
+                var resetpass = 'http://localhost/pramesh/backend/api/reset_password_email_check';
+            }
+            else {
+                var resetpass = 'http://pramesh.justcodenow.com/backend/api/reset_password_email_check';
+            }
+            const fd = new FormData();
+            fd.append('vEmail', ResetEmail);
+            const dataa = axios.post(resetpass, fd)
+                .then(res => {
+                    if (res.data.Status == '0') {
+                        history.push("/verifyotp");
+                    }
+                    else {
+                        Swal.fire(
+                            'Error',
+                            res.data.message,
+                            'error'
+                        )
+                    }
+                })
+                .catch(error => {
+                })
+        }
+    }
 
 
     return (
@@ -142,7 +211,7 @@ const Login = () => {
                                     </div>
                                 </div>
                                 <div className="forgot">
-                                    <a href="/">FORGET PASSWORD</a>
+                                    <a onClick={forgot}>FORGET PASSWORD ?</a>
                                 </div>
                             </div>
 
@@ -151,7 +220,7 @@ const Login = () => {
                                     LOGIN
                                 </button>
                                 <button className=" btn gbtn">
-                                    <i class="fa fa-google mr-2" aria-hidden="true"></i>Sign in with Google
+                                    <img class=" mr-2"   src={process.env.PUBLIC_URL + "/Images/google.svg"}  /> Google
                                 </button>
                             </div>
 
@@ -160,6 +229,44 @@ const Login = () => {
                                 <h3> Don't have an account ?  <Link to="/register"> Create free account </Link> </h3>
                             </div>
                         
+                    </div>
+                </div>
+            </div>
+            {/* ******* FORGOT PASSWORD ********** */}
+
+            <div className={`resetpass ${show ? "show" : ""}`}>
+                <div className="resetdiv">
+                    <div className="border">
+                        <i className="fa fa-close" onClick={forgot}></i>
+                        <img
+                            src={process.env.PUBLIC_URL + "/Images/registerBg.jpg"}
+                            className="registerBg"
+                        />
+                        <h1>FORGOT YOUR PASSWORD</h1>
+                        <h3>
+                            Please enter your email address below. You will receive a link to <br />
+                            reset your password.
+                        </h3>
+                        <input
+                            type="text"
+                            name="reset"
+                            id="resetemail"
+                            onChange={(e) => setResetEmail(e.target.value)}
+                            placeholder="Email Address"
+                        />
+                        <span className="red">{ErrorEmail}</span>
+                        <button onClick={ResetPassword}  className="resetbtn">RESET PASSWORD</button>
+                        <Link to="/verifyotp">CLICK</Link>
+                        <div>
+
+
+                            <h4 onClick={forgot}>Login</h4>
+
+                            <h4>|</h4>
+                            <Link to="/register">
+                                <h4>create An Account</h4>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>

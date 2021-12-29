@@ -3,22 +3,55 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { gsap } from "gsap/all";
 import {
     setMainheader,
     setProductListing,
-    setMainproductdata
+    setMainproductdata,
+    setAddtocartsavedata,
+    setAddtocartsubtotal,
 } from "../../redux/actions/productActions";
 
 const Navbar = () => {
+    var cookie = localStorage.getItem("cookie");
+    var iUserId = localStorage.getItem("iUserId");
+
+    const [slide, setSlide] = useState(false);
+    const [search, setsearch] = useState(false)
+
+    function searching() {
+        
+        if(search == false){
+            setsearch(true)
+         gsap.fromTo(
+             ".searched",
+             { y: -50, opacity: 0 , display : "none"},
+             { y: 0, opacity: 1, display : "flex" ,duration: 0.5 }
+         );
+        }
+ 
+        if(search == true){
+         gsap.fromTo(
+             ".searched",
+             { y: 0, opacity: 1 ,display : "flex" },
+             { y: -50, opacity: 0,  display : "none" , duration: 0.5 }
+         );
+         setsearch(false)
+ 
+        }
+    }
+    
     const dispatch = useDispatch();
     var answer = window.location.href;
     const answer_array = answer.split("/");
     if (answer_array[2] == "localhost:3000") {
-        var header  = `http://localhost/pramesh/backend/api/header`;
-        var url     = `http://localhost/pramesh/backend/api/main_product_listing`;
+        var header          = `http://localhost/pramesh/backend/api/header`;
+        var url             = `http://localhost/pramesh/backend/api/main_product_listing`;
+        var cartdatasave    = `http://localhost/pramesh/backend/api/addtocartdataget?cookie=${cookie}@@${iUserId}`;
     } else {
-        var header  = `http://pramesh.justcodenow.com/backend/api/header`;
-        var url     = `http://pramesh.justcodenow.com/backend/api/main_product_listing`;
+        var header          = `http://pramesh.justcodenow.com/backend/api/header`;
+        var url             = `http://pramesh.justcodenow.com/backend/api/main_product_listing`;
+        var cartdatasave    = `http://pramesh.justcodenow.com/backend/api/addtocartdataget?cookie=${cookie}@@${iUserId}`;
     }
     const mainNavbar = async () => {
         // ***************HEADER***************
@@ -28,13 +61,56 @@ const Navbar = () => {
         if (headerdata.data.data) {
             dispatch(setMainheader(headerdata.data.data));
         }
+        // *********************ADD TO CART DATA ******************
+        const addtocart = await axios.get(cartdatasave);
+
+        if (addtocart.data.data) {
+            dispatch(setAddtocartsavedata(addtocart.data.data));
+            dispatch(setAddtocartsubtotal(addtocart.data.subtotal));
+        }
+
     };
 
     useEffect(() => {
         mainNavbar();
     }, []);
 
-    const Header_data = useSelector((state) => state.Mainheader.MainheaderArray);
+    const Remove_addtocart = (e) => {
+        var iAddtocartId = e.target.id;
+
+        if (answer_array[2] == 'localhost:3000') {
+            var remove_product = `http://localhost/pramesh/backend/api/addtocartdelete`;
+        }
+        else {
+            var remove_product = `http://pramesh.justcodenow.com/backend/api/addtocartdelete`;
+        }
+
+        const fd = new FormData();
+        fd.append('iAddtocartId', iAddtocartId);
+        fd.append('vCookie', cookie);
+        fd.append('iUserId', iUserId);
+        if (iAddtocartId != 'undefined') {
+            const dataa = axios.post(remove_product, fd)
+                .then(res => {
+                    if (res.data.Status == '0') {
+                        dispatch(setAddtocartsavedata(res.data.data));
+                        dispatch(setAddtocartsubtotal(res.data.subtotal));
+
+                    }
+                    else {
+
+                    }
+                })
+                .catch(error => {
+                })
+        }
+
+
+    }
+
+    const Header_data   = useSelector((state) => state.Mainheader.MainheaderArray);
+    const Addtocart     = useSelector((state) => state.MainAddtocartsavedata.MainAddtocartsavedataArray);
+    const SubTotal      = useSelector((state) => state.MainAddtocartsubtotal.MainAddtocartsubtotalArray);
 
     const SubcategortClick = async (e) =>
     {
@@ -60,7 +136,13 @@ const Navbar = () => {
         }
     };
 
-   
+    const show_addtocart_data = () => {
+        setSlide(true);
+    }
+    const sliding = () => {
+        setSlide(false);
+    }
+
 
     useEffect(() => {
         mainproductdata();
@@ -68,6 +150,14 @@ const Navbar = () => {
 
     return (
         <>
+        <div className="searched ">
+            <div className="search">
+                <div className="position-relative">
+                    <input type="text" placeholder="Search" />
+                    <i className="fa fa-search"></i>
+                </div>
+            </div>
+        </div>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="nav-div">
                     <Link to="/">
@@ -164,7 +254,7 @@ const Navbar = () => {
                 </div>
                 <div className="d-flex iconBox">
                     <div className="icons ">
-                        <span>
+                        <span onClick={searching}>
                             <i className="fa fa-search" aria-hidden="true"></i>
                         </span>
                         <span>
@@ -176,9 +266,10 @@ const Navbar = () => {
                             </Link>
                         </span>
                     </div>
-                    <div className="cart">
-                        <span>
-                            <i className="fa fa-shopping-cart mr-3" aria-hidden="true"></i>0
+                    <div className="cart position-relative" onClick={show_addtocart_data}  >
+                            <i className="fa fa-shopping-cart mr-3" aria-hidden="true"></i>
+                        <span id="cartNum" >
+                        {Addtocart.length}
                         </span>
                     </div>
                     <div className="inr">
@@ -188,6 +279,48 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
+            {/* ******************************* */}
+            {/* Add on Cart section   */}
+
+            <div className={`clickoncart ${slide == true ? "slide" : ""}`}>
+                <button className="closed" onClick={sliding}>
+                    <i className="fa fa-close"></i>
+                </button>
+
+                <div className="scroll">
+                    {
+                        Addtocart.length > 0 ?
+                            Addtocart.map(function (addtoct, index) {
+                                return <>
+                                    <div className="mycards">
+                                        <button id={`${addtoct.iAddtocartId}`} onClick={Remove_addtocart} className="close">X</button>
+                                        <div className="cardimg mr-4"><img className="img" src={addtoct.vImage} alt="img" /></div>
+                                        <div className="cartinfo">
+                                            <h2>{addtoct.vProductName}</h2>
+                                            <p>Qty : <span>{addtoct.vQty}</span></p>
+                                            <h4>र {addtoct.vTotal}</h4>
+                                        </div>
+                                    </div>
+                                </>
+
+                            })
+                            :
+                            <><hr></hr>
+                                <h1 className="text-center">Record Not Found!</h1>
+                                <hr></hr>
+                            </>
+                    }
+                </div>
+
+                <div className="total p-3">
+                    <h2>CART SUBTOTAL :</h2>
+                    <h3>र {SubTotal}</h3>
+                </div>
+                <div className="checkout">
+                    <button className="cbtn">VIEW CART</button>
+                    <button className="pbtn">PROCEED TO CHECKOUT</button>
+                </div>
+            </div>
         </>
     );
 };

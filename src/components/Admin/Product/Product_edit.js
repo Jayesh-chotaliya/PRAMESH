@@ -12,56 +12,45 @@ import $ from "jquery";
 import Variants from "./Variants";
 
 const Product_edit = () => {
-
-
-
     let history = useHistory();
     var answer = window.location.href;
     const answer_array = answer.split("/");
     const p = answer_array[5];
 
-    const [Category, setCategory] = useState([]);
-    const [SubCategory, setSubCategory] = useState([]);
-    const [CatId, setCatId] = useState([]);
-    const [SubcatId, setSubcatId] = useState([]);
+    const [Category, setCategory]               = useState([]);
+    const [SubCategory, setSubCategory]         = useState([]);
+    const [CatId, setCatId]                     = useState([]);
+    const [SubcatId, setSubcatId]               = useState([]);
+    const [Product_v, setProduct_v]             = useState([]);
 
-    const [CategoryId, setCategoryId] = useState("");
-    const [Product, setProduct] = useState("");
-    const [SubCategory_id, setSubcategory] = useState("");
-    const [Product_v, setProduct_v] = useState([]);
+    const [CategoryId, setCategoryId]           = useState("");
+    const [Product, setProduct]                 = useState("");
+    const [SubCategory_id, setSubcategory]      = useState("");
+    const [Gif, setGif]                         = useState(false);
     const [Product_variantid, setProduct_variantid] = useState("");
 
-    const [Qty, setQty] = useState("");
-    const [Price, setPrice] = useState("");
-    const [Desc, setDesc] = useState("");
+    const [Qty, setQty]                         = useState("");
+    const [Price, setPrice]                     = useState("");
+    const [Desc, setDesc]                       = useState("");
+    const [Moredesc, setMoredesc]               = useState("");
 
-    // const [Editmoredesc, setEditmoredesc] = useState("");
-    const [Moredesc, setMoredesc] = useState("");
+    const [Status, setStatus]                   = useState("inActive");
+    const [StatusHomepage, setStatusHomepage]   = useState("2");
 
-    const [Status, setStatus] = useState("inActive");
-    const [StatusHomepage, setStatusHomepage] = useState("2");
-    //   const [Active, setActive] = useState("");
-
-    const [errorProduct, setErrroProduct] = useState("");
-    const [errorImage, setErrroImage] = useState("");
-    const [errorQty, setErrroQty] = useState("");
-    const [errorPrice, setErrroPrice] = useState("");
+    const [errorProduct, setErrroProduct]       = useState("");
+    const [errorImage, setErrroImage]           = useState("");
+    const [errorQty, setErrroQty]               = useState("");
+    const [errorPrice, setErrroPrice]           = useState("");
     const [errorCategory_v, setErrroCategory_v] = useState("");
-    const [SubCategory_i, setErrroSubCategory] = useState("");
-    const [Error, setErrro] = useState("false");
-    const [DescError, setDescError] = useState("");
-    const [MoredescError, setMoredescError] = useState("");
+    const [SubCategory_i, setErrroSubCategory]  = useState("");
+    const [Error, setErrro]                     = useState("false");
+    const [DescError, setDescError]             = useState("");
+    const [MoredescError, setMoredescError]     = useState("");
 
     var iProductId = window.location.pathname.substring(
         window.location.pathname.lastIndexOf("/") + 1
     );
 
-    // function imagechange(e) {
-    //     let ImagesArray = Object.entries(e.target.files).map((e) =>
-    //         e[1]
-    //     );
-    //     setImage(ImagesArray);
-    // }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -123,10 +112,12 @@ const Product_edit = () => {
         const fd = new FormData(event.target);
 
         if (iProductId && Product && CategoryId != "0" && Desc && Moredesc) {
+            setGif(true);
             const dataa = axios
                 .post(url, fd)
                 .then((res) => {
                     if (res.data.Status == "0") {
+                        setGif(false);
                         toast.success(res.data.message, {
                             position: "top-center",
                             autoClose: 5000,
@@ -142,6 +133,7 @@ const Product_edit = () => {
                             // window.location.reload(1);
                         }, 1000);
                     } else {
+                        setGif(false);
                         toast.error(res.data.message, {
                             position: "top-center",
                             autoClose: 5000,
@@ -432,6 +424,12 @@ const Product_edit = () => {
                                                                 </button>
                                                             </a>
                                                         </Link>
+                                                        {
+                                                            Gif == true ?
+                                                                <img className="loding_gif_product" src={process.env.PUBLIC_URL + "/Images/3.gif"} alt="img" />
+                                                                :
+                                                                <></>
+                                                        }
                                                     </div>
                                                     <ToastContainer
                                                         position="top-right"

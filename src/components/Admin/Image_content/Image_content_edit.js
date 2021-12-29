@@ -19,16 +19,16 @@ const Image_content_edit = () => {
         var url = 'http://pramesh.justcodenow.com/backend/api/image_content_added';
     }
 
-    let history                 = useHistory();
-    const [Title, setTitle]     = useState("");
-    const [Image, setImage]     = useState("");
-    const [Status, setStatus]   = useState("");
-    const [Desc, setDesc]       = useState("");
-    const [ImageType, setImageType] = useState('');
-
-    const [TitleError, setTitleError] = useState("");
-    const [ImageError, setImageError] = useState("");
-    const [DescError, setDescError] = useState("");
+    let history                         = useHistory();
+    const [Title, setTitle]             = useState("");
+    const [Image, setImage]             = useState("");
+    const [Status, setStatus]           = useState("");
+    const [Desc, setDesc]               = useState("");
+    const [ImageType, setImageType]     = useState('');
+    const [Gif, setGif]                 = useState(false);
+    const [TitleError, setTitleError]   = useState("");
+    const [ImageError, setImageError]   = useState("");
+    const [DescError, setDescError]     = useState("");
 
     var iContentId = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
 
@@ -54,7 +54,6 @@ const Image_content_edit = () => {
             setDescError("Please Enter Description");
         }
 
-        
         const fd = new FormData();
         fd.append('vTitle', Title);
         fd.append('vImage', Image);
@@ -63,12 +62,13 @@ const Image_content_edit = () => {
         fd.append('vImageType', ImageType);
         fd.append('iContentId', iContentId);
 
-        
         if (Title!="" && Image!="") 
         {
+            setGif(true);
             const dataa = axios.post(url, fd)
                 .then(res => {
                     if (res.data.Status == '0') {
+                        setGif(false);
                         toast.success(res.data.message, {
                             position: "top-center",
                             autoClose: 5000,
@@ -84,6 +84,7 @@ const Image_content_edit = () => {
                         }, 2000);
                     }
                     else {
+                        setGif(false);
                         toast.error(res.data.message, {
                             position: "top-center",
                             autoClose: 5000,
@@ -268,7 +269,14 @@ const Image_content_edit = () => {
 
                                                 <div className="col-lg-12">
                                                     <div className="form-group">
-                                                        <button type="button" onClick={addbanner_content} className="btn  btn-primary">Submit</button>
+                                                        <button type="button" onClick={addbanner_content} className="btn  btn-primary">
+                                                            {
+                                                                Gif == true ?
+                                                                    <img className="loding_gif" src={process.env.PUBLIC_URL + "/Images/3.gif"} alt="img" />
+                                                                    :
+                                                                    <>Submit</>
+                                                            }
+                                                        </button>
                                                         <Link to='/admin/image-content'>
                                                             <a><button type="button" className="btn btn-warning">Back</button></a>
                                                         </Link>

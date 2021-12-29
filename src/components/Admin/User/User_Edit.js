@@ -14,6 +14,7 @@ const User_Edit = () =>
     const [LastName, setLastname] = useState("");
     const [Email, setEmail] = useState("");
     const [Status, setStatus] = useState("");
+    const [Gif, setGif] = useState(false);
 
     const [ErrorFirstName, setErrorFirstname] = useState("");
     const [ErrorLastName, setErrorLastname] = useState("");
@@ -60,6 +61,7 @@ const User_Edit = () =>
         fd.append('iUserId', iUserId);
 
         if (FirstName && LastName) {
+            setGif(true);
             var answer = window.location.href;
             const answer_array = answer.split('/');
 
@@ -72,6 +74,7 @@ const User_Edit = () =>
             const dataa = axios.post(url, fd)
                 .then(res => {
                     if (res.data.Status == '0') {
+                        setGif(false);
                         toast.success(res.data.message, {
                             position: "top-center",
                             autoClose: 5000,
@@ -197,7 +200,14 @@ const User_Edit = () =>
                                                 </div>
                                                 <div className="col-lg-12">
                                                     <div className="form-group">
-                                                        <button type="button" onClick={edituserdata} className="btn  btn-primary">Submit</button>
+                                                        <button type="button" onClick={edituserdata} className="btn  btn-primary">
+                                                            {
+                                                                Gif == true ?
+                                                                    <img className="loding_gif" src={process.env.PUBLIC_URL + "/Images/3.gif"} alt="img" />
+                                                                    :
+                                                                    <>Submit</>
+                                                            }
+                                                        </button>
                                                         <Link to="/admin/listing">
                                                             <a><button type="button" className="btn btn-warning">Back</button></a>
                                                         </Link>

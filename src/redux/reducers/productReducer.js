@@ -11,6 +11,8 @@ const initialState = {
     MainheaderArray: [],
     MainProductListingArray: [],
     MainAddtocartArray: [],
+    MainAddtocartsavedataArray: [],
+    MainAddtocartsubtotalArray: [],
 }
 
 export const productReducer = (state = initialState ,{type ,payload}) =>
@@ -104,6 +106,24 @@ export const miniAddtocartproduct = (state = initialState, { type, payload }) =>
     switch (type) {
         case Actiontype.ADDTOCARTPAGE:
             return { ...state, MainAddtocartArray: payload };
+        default:
+            return state;
+    }
+}
+export const miniAddtocartsavedata = (state = initialState, { type, payload }) => {
+    switch (type) 
+    {
+        case Actiontype.ADDTOCARTSAVEDATA:
+            return { ...state, MainAddtocartsavedataArray: payload };
+        default:
+            return state;
+    }
+}
+
+export const miniAddtocartsubtotal = (state = initialState, { type, payload }) => {
+    switch (type) {
+        case Actiontype.ADDTOCARTSUBTOTAL:
+            return { ...state, MainAddtocartsubtotalArray: payload };
         default:
             return state;
     }

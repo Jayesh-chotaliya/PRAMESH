@@ -36,7 +36,6 @@ const HomePage = () => {
         var homepage_producturl     = `http://pramesh.justcodenow.com/backend/api/homepage_product`;
     }
 
-
     // *******************banner Data Get*****************************
     const fetchbanner = async () => {
         const response = await axios.get(urls).catch((err) => {
@@ -126,7 +125,9 @@ const HomePage = () => {
         }
         return (
             <div className={`carousel-item  ${ac}`}>
-                <img className="d-block w-100" src={pro.vImage} alt="First slide" />
+                <Link to='/product-listing'>
+                    <img className="d-block w-100" style={{ height: "80rem" }} src={pro.vImage} alt="First slide" />
+                </Link>
                 <div className="txt">
                     <h3>MORDEN ARCHIVE</h3>
                     <h1>SHOP NOW </h1>
@@ -144,7 +145,9 @@ const HomePage = () => {
         }
         return (
             <div className={`carousel-item active_image ${ac}`}>
+                <Link to='/product-listing'>
                 <img onMouseOver={mouse_hover} className="d-block w-100 image_zooming" src={banner.vImage} alt="First slide" />
+                </Link>
             </div>
 
         );
@@ -212,6 +215,7 @@ const HomePage = () => {
             <section className="nostalgic mb-6">
                 <div className="row">
                     <div className="left col-lg-6 col-md-8 col-sm-10 mx-auto">
+                        <Link to='/product-listing'>
                         <img
                             src={
 
@@ -220,6 +224,7 @@ const HomePage = () => {
                             className="img-fluid"
                             alt="Image"
                         />
+                        </Link>
                     </div>
                     <div className="right text-center col-lg-6 col-md-8 col-sm-10  mx-auto">
                         <h1>NOSTALGIC MASTERPIECES</h1>
@@ -290,7 +295,7 @@ const HomePage = () => {
 
                                 <div className="col-lg-3 col-md-6 col-sm-12 mx-auto">
                                     <div className="overflow-hidden">
-                                        <Link to="/product-listing" >
+                                        <Link to={`/product-listing/${btoa(product.iCategoryId)}`}>
                                             <img
                                                 src={product.vImage}
                                                 className="img-fluid"
@@ -358,7 +363,7 @@ const HomePage = () => {
                         MADE TO LAST,GETTIN<span>G</span>
                         <span> BETTER EVERY YEAR</span>
                     </p>
-                    <button className="sareeBtn2">DISCOVER</button>
+                    {/* <button className="sareeBtn2">DISCOVER</button> */}
                 </div>
 
                 <div className="img">
@@ -376,7 +381,7 @@ const HomePage = () => {
                         MADE TO LAST,GETTIN<span>G</span>
                         <span> BETTER EVERY YEAR</span>
                     </p>
-                    <button className="sareeBtn">DISCOVER</button>
+                    {/* <button className="sareeBtn">DISCOVER</button> */}
                 </div>
             </section>
             {/* ************ Diwali section************  */}
