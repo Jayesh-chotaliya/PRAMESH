@@ -29,16 +29,19 @@ const Addtocart = () => {
     localStorage.setItem("cookie", now);
   }
 
-  const [num, setnum] = useState(0);
-  const [Quntity, setQuntity] = useState(0);
-  const [slide, setSlide] = useState(false);
+  const [num, setnum]                             = useState(0);
+  const [Quntity, setQuntity]                     = useState(0);
+  const [slide, setSlide]                         = useState(false);
   const [Totalproducterror, setTotalproducterror] = useState("");
-  const [Qtyerror, setQtyerror] = useState("");
+  const [Qtyerror, setQtyerror]                   = useState("");
+  const [Size, setSize]                           = useState("");
+  const [ErrorSize, setErrorSize]                 = useState("");
+
   // const [Subtotal, setSubtotal] = useState('');
 
-  const dispatch = useDispatch();
-  var answer = window.location.href;
-  const answer_array = answer.split("/");
+  const dispatch      = useDispatch();
+  var answer          = window.location.href;
+  const answer_array  = answer.split("/");
 
   var iProductId = atob(answer_array[4]);
   var vPrice = atob(answer_array[5]);
@@ -121,17 +124,30 @@ const Addtocart = () => {
   const sliding = () => {
     setSlide(false);
   };
+  const sizechange = (e) =>
+  {
+      setErrorSize('');
+      setSize(e.target.value);
+
+  }
 
   const addtocart = () => {
     var vImage = document.getElementById("vImage").value;
     var Addqty = document.getElementById("Addqty").value;
     var vPrice = document.getElementById("vPrice").value;
     var vProductName = document.getElementById("vProductName").value;
-
+  
     if (Addqty > 0) {
       setQtyerror("");
     } else {
       setQtyerror("Please Select Quntity");
+    }
+
+    if (Size) {
+      setErrorSize('');
+    }
+    else {
+      setErrorSize('borderadded');
     }
 
     const fd = new FormData();
@@ -141,9 +157,10 @@ const Addtocart = () => {
     fd.append("vImage", vImage);
     fd.append("vQty", Addqty);
     fd.append("vCookie", cookie);
+    fd.append("vSize", Size);
     fd.append("iUserId", iUserId);
 
-    if (Addqty > 0) {
+    if (Addqty > 0 && Size) {
       if (answer_array[2] == "localhost:3000") {
         var addtocart = "http://localhost/pramesh/backend/api/addtocart";
       } else {
@@ -205,8 +222,9 @@ const Addtocart = () => {
     (state) => state.MainAddtocartsubtotal.MainAddtocartsubtotalArray
   );
 
-  // console.log("OKKKK", SubTotal);
-
+  // ***************Size validation *****************************
+  
+  console.log(Single_product);
   return (
     <>
       <Navbar />
@@ -216,23 +234,20 @@ const Addtocart = () => {
           {Single_product.map(function (product, i) {
             return (
               <>
-                {/* <div className="col-xl-5 col-lg-5 leftcart">
-                  {product.image.map(function (img, index) {
-                    return (
-                      <div className="l-img ">
-                        <img src={img.vImage} alt="cartImg" />
-                        <input type="hidden" id="vImage" value={img.vImage} />
-                       
-                      </div>
-                    );
-                  })}
-                </div> */}
                 <div className="col-xl-5 col-lg-5 leftcart">
                   <Carousel showArrows={false}>
-                    {product.image.map(function (img, index) {
+                    {product.image.map(function (img, index) 
+                    {
+                     
                       return (
                         <div>
-                          <img src={img.vImage} alt="" />
+                          {
+                            index==0 ?
+                              <input type="hidden" id="vImage" value={img.vImage} />
+                              :
+                              <></>
+                          }
+                          <img  src={img.vImage} alt="" />
                         </div>
                       );
                     })}
@@ -240,12 +255,12 @@ const Addtocart = () => {
                 </div>
                 <div className="col-xl-7 col-lg-7 rightcart">
                   <h1>{product.vProductName}</h1>
-                  <input
-                    type="hidden"
-                    id="vProductName"
-                    value={product.vProductName}
-                  />
+                  <input type="hidden" id="vProductName" value={product.vProductName} />
                   <input type="hidden" id="vQty" value={product.vQty} />
+                  <input type="hidden" id="Addqty" value={num} />
+                  <input type="hidden" id="vPrice" value={product.vPrice} />
+                  
+
                   <p className="mb-5 pri"> र {product.vPrice} </p>
 
                   <div className="sizes">
@@ -253,29 +268,29 @@ const Addtocart = () => {
 
                     <div className="d-flex">
                       <div>
-                        <input type="radio" name="size" id="sizexs" />
-                        <label htmlFor="sizexs">XS</label>
+                        <input onChange={sizechange} type="radio" value="XS" name="size" id="sizexs" />
+                        <label className={ErrorSize} htmlFor="sizexs">XS</label>
                       </div>
                       <div>
-                        <input type="radio" name="size" id="sizes" />
-                        <label htmlFor="sizes">S</label>
+                        <input onChange={sizechange} type="radio" value="S" name="size" id="sizes" />
+                        <label className={ErrorSize} htmlFor="sizes">S</label>
                       </div>
                       <div>
-                        <input type="radio" name="size" id="sizem" />
-                        <label htmlFor="sizem">M</label>
+                        <input onChange={sizechange} type="radio" value="M" name="size" id="sizem" />
+                        <label className={ErrorSize} htmlFor="sizem">M</label>
                       </div>
                       <div>
-                        <input type="radio" name="size" id="sizel" />
-                        <label htmlFor="sizel">L</label>
+                        <input onChange={sizechange} type="radio" value="L" name="size" id="sizel" />
+                        <label className={ErrorSize} htmlFor="sizel">L</label>
                       </div>
                       <div>
-                        <input type="radio" name="size" id="sizexl" />
-                        <label htmlFor="sizexl">XL</label>
+                        <input onChange={sizechange}  type="radio" value="XL" name="size" id="sizexl" />
+                        <label className={ErrorSize} htmlFor="sizexl">XL</label>
                       </div>
                     </div>
                   </div>
 
-                  <input type="hidden" id="vPrice" value={product.vPrice} />
+                 
                   <div className="qty mt-5">
                     <span className="mr-4">Quantity : </span>
 
@@ -285,7 +300,7 @@ const Addtocart = () => {
 
                     <span className="product-qty"> {num} </span>
 
-                    <input type="hidden" id="Addqty" value={num} />
+                    
                     
                     <button className="qty-count" onClick={plus}>
                       <i class="fa fa-plus"></i>

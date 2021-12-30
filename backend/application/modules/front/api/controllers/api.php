@@ -1007,6 +1007,64 @@ class Api extends MX_Controller
 		exit;
 
 	}
+
+	// COLOR****************************************************
+	public function color_add()
+	{	
+			
+	    $data['vColor']              	= $_POST['vColor'];
+        $data['dtAddedDate']            = date("Y-m-d h:i:s");
+        $data['eStatus']            	= $_POST['eStatus'];
+
+
+		$result   = $this->category_model->add_color($data);
+		if($result)
+		{
+			$data = array();
+			$data['Status'] 		= '0';
+			$data['message']  		= 'Color Added Successfully';
+		}
+		else
+		{
+			$data = array();
+			$data['Status'] 		= '1';
+			$data['message']  		= 'Color Not Added Please Try!';
+		}
+
+		echo json_encode($data);
+		exit;
+
+	}
+
+	public function all_color_get()
+	{
+		$result     		= $this->category_model->get_by_all_color();
+		if(count($result) > 0)
+		{
+			$data['Status']     = '1';
+			$data['message']  	= 'Color Listing Successfully';
+			$data['data']       = $result;
+		}
+		else
+		{
+			$data['Status']     = '0';
+			$data['message']  	= 'Data Not Found';
+			$data['data']     	= array();
+		}
+ 		echo json_encode($data);
+	}
+
+	public function delete_color()
+	{
+		$iColorId  = $this->input->post('iColorId');
+		$id = $this->category_model->delete_by_colorid($iColorId);
+		$data['Status']     = '0';
+		$data['message']  	= 'Color Deleted Successfully';
+		echo json_encode($data);
+	}
+	
+	// ************************************************************* COLOR END****************************************
+
     // ***********************************************SUB CATEGORY*********************************
 	public function get_category()
 	{
@@ -1022,6 +1080,7 @@ class Api extends MX_Controller
 				$data['Status']     = '1';
 				$data['message']  	= 'Category Data Get Successfully';
 				$data['data']       = $result;
+				
 			}
 			else
 			{
@@ -1033,11 +1092,15 @@ class Api extends MX_Controller
 		else
 		{
 			$result     		= $this->category_model->get_by_all_category();
+			$color     			= $this->category_model->get_by_all_color();
+			$fabric     	    = $this->category_model->get_by_all_fabric();
 			if(count($result) > 0)
 			{
 				$data['Status']     = '1';
 				$data['message']  	= 'Image Content Data Get Successfully';
 				$data['data']       = $result;
+				$data['color']      = $color;
+				$data['fabric']     = $fabric;
 			}
 			else
 			{
@@ -1057,7 +1120,8 @@ class Api extends MX_Controller
 		$iSubcategoryId = $_POST['iSubcategoryId'];
 
 	    $data['vSubTitle']              	= $_POST['vTitle'];
-        $data['vProductType']           		= $_POST['ProductType'];
+	    $data['iFabricId']              	= $_POST['iFabricId'];
+        $data['vProductType']           	= $_POST['ProductType'];
         $data['dtAddedDate']            	= date("Y-m-d h:i:s");
         $data['eStatus']            		= $_POST['eStatus'];
 
@@ -1870,7 +1934,7 @@ class Api extends MX_Controller
 	}
 
 	public function addtocart()
-	{	
+	{
 		$vPrice 	= $_POST['vPrice'];
 		$vQty    	= $_POST['vQty'];
 		$vTotal   	= $vPrice * $vQty;
@@ -1906,7 +1970,6 @@ class Api extends MX_Controller
 			{
 				$iUserId = $iUserId;
 			}
-			
 			
 			$addtocart = $this->register_model->get_by_all_addtocart_data($cookiedata,$iUserId);
 			$Subtotal = array();
