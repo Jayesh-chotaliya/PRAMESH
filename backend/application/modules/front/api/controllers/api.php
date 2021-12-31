@@ -781,10 +781,8 @@ class Api extends MX_Controller
 				$data['message']  		= 'Product Updated  Successfully';
 			}
 		}
-		
 		echo json_encode($data);
 		exit;
-
 	}
 
 	public function product_delete()
@@ -838,7 +836,9 @@ class Api extends MX_Controller
 	{
 		$iProductId 						= $_POST['iProductId'];
 		
-		if($_FILES['vImage']['name'] != "")
+		$length = strlen($_FILES['vImage']['name'][0]);
+	
+		if($_FILES['vImage']['name'] != "" && $length > 0)
 		{
 			for($i=0; $i<count($_FILES['vImage']['name']); $i++)
 			{
@@ -879,10 +879,15 @@ class Api extends MX_Controller
 			echo json_encode($data);
 			exit;	
 		}
-
-		
-		
-
+		else
+		{
+			$data = array();
+			$data['Status'] 		= '1';
+			$data['message']  		= 'Please Select Image';
+			
+			echo json_encode($data);
+			exit;
+		}
 	}
 	// **********************************************************CATEGORY********************************************
 	public function all_category_get()
@@ -1787,11 +1792,15 @@ class Api extends MX_Controller
 		
 
 		$result     		= $this->product_model->get_by_product_id_with_image($iProductId,$vPrice);
+		$iCategoryId        = $result[0]->iCategoryId;
+		$Slider     		= $this->product_model->get_by_category_wise_product($iCategoryId);
+
 		if(count($result) > 0)
 		{
 			$data['Status']     = '1';
 			$data['message']  	= 'Single Data Get Successfully';
 			$data['data']       = $result;
+			$data['Slider']     = $Slider;
 		}
 		else
 		{
@@ -1896,7 +1905,12 @@ class Api extends MX_Controller
 	
 		$result   = $this->register_model->get_by_email_password($vEmail,$vPassword);
 
-	
+		$vFirstName = $result->vFirstName;
+		$vLastName = $result->vLastName;
+		
+		$sortname = $vFirstName[0]."".$vLastName[0];
+		
+			
 		if(count($result) > 0)
 		{
 			if($result->eStatus=='Active')
@@ -1913,6 +1927,7 @@ class Api extends MX_Controller
 				$data['Status'] 		= '0';
 				$data['message'] 		= 'Login Successfully';
 				$data['data']  			= $result;
+				$data['sortname']		= strtoupper($sortname);
 			}
 			else
 			{

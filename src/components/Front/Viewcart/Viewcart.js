@@ -23,13 +23,13 @@ const Viewcart = () => {
 
       <section className="viewcart">
         <div className="row bord">
-          <div className="col-xl-5 col-lg-5">
+          <div className="col-xl-5 col-lg-5 col-md-4 col-sm-3">
             <h1>ITEM</h1>
           </div>
-          <div className="col-xl-3 col-lg-3">
+          <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3">
             <h1>QTY</h1>
           </div>
-          <div className="col-xl-3 col-lg-3">
+          <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3">
             <h1>PRICE</h1>
           </div>
         </div>
@@ -38,7 +38,10 @@ const Viewcart = () => {
             {" "}
             <i className="fa fa-close"></i>
           </span>
-          <div className="col-xl-5 col-lg-5 d-flex">
+          <div
+            className="col-xl-5 col-lg-5  col-md-3 col-sm-3
+              col-md-4 col-sm-4 d-flex"
+          >
             <img
               src={process.env.PUBLIC_URL + "/Images/patola.png"}
               alt="Image"
@@ -49,7 +52,10 @@ const Viewcart = () => {
               <h2>SIZE : XS</h2>
             </div>
           </div>
-          <div className="col-xl-3 col-lg-3 d-flex align-items-center">
+          <div
+            className="col-xl-3 col-lg-3 col-md-3 col-sm-3
+              col-md-3 col-sm-3 d-flex align-items-center"
+          >
             <div className="qty mt-5">
               <button className="qty-count" onClick={minus}>
                 -
@@ -61,7 +67,10 @@ const Viewcart = () => {
               </button>
             </div>
           </div>
-          <div className="col-xl-3 col-lg-3 d-flex align-items-center">
+          <div
+            className="col-xl-3 col-lg-3 col-md-3 col-sm-3
+              col-md-3 col-sm-3 d-flex align-items-center"
+          >
             <h2>₹8,900</h2>
           </div>
         </div>

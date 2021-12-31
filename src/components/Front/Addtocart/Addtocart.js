@@ -419,7 +419,7 @@ const Addtocart = () => {
                         onClick={Remove_addtocart}
                         className="close"
                       >
-                        <i className="fa fa-close"></i>
+                      X
                       </button>
                       <div className="cardimg mr-4">
                         <img className="img" src={addtoct.vImage} alt="img" />
@@ -455,7 +455,7 @@ const Addtocart = () => {
             <Link to="/viewcart" style={{ display: "contents" }}>
               <button className="cbtn">VIEW CART</button>
             </Link>
-            <button className="pbtn">PROCEED TO CHECKOUT</button>
+            <Link to ="/checkout" style={{display : "contents"}}><button className="pbtn">PROCEED TO CHECKOUT</button></Link>
           </div>
         </div>
       </section>

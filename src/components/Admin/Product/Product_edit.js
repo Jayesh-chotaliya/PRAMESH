@@ -310,6 +310,8 @@ const Product_edit = () => {
                                                                 <option value="">Select Sub Category</option>
                                                                 {SubCategory.map((subcat, index) => (
                                                                     <option
+                                                                     className="mb-5"
+                                                                     style={{paddingBottom : "2rem"}}
                                                                         selected={
                                                                             subcat.iSubcategoryId == SubcatId
                                                                                 ? "selected"

@@ -29,6 +29,8 @@ class Category_model extends CI_Model
 
     var $table                      = 'category';
     var $table_subcategory          = 'subcategory';
+    var $table_color                = 'color';
+    var $table_fabric               = 'fabric';
 
     public function __construct()
     {
@@ -44,7 +46,30 @@ class Category_model extends CI_Model
         $this->db->insert($this->table_subcategory, $data);
         return $this->db->insert_id();
     }
+     public function add_color($data)
+    {
+        $this->db->insert($this->table_color, $data);
+        return $this->db->insert_id();
+    }
+    
+    public function get_by_all_color()
+    {   
+        $this->db->from($this->table_color);
+        $this->db->order_by("iColorId", "desc");
+        $query=$this->db->get();
+        $data = $query->result();
+        return $data;
+    }
+    public function get_by_all_fabric()
+    {   
+        $this->db->from($this->table_fabric);
+        $this->db->order_by("iFabricId", "desc");
+        $query=$this->db->get();
+        $data = $query->result();
+        return $data;
+    }
 
+    
     public function get_by_all_category()
     {   
         $this->db->from($this->table);
@@ -86,6 +111,14 @@ class Category_model extends CI_Model
         $this->db->where('iCategoryId', $iCategoryId);
         $this->db->delete($this->table);
     }
+    
+    public function delete_by_colorid($iColorId)
+    {
+        $this->db->where('iColorId', $iColorId);
+        $this->db->delete($this->table_color);
+    }
+
+
     public function delete_by_sub_id($iSubcategoryId)
     {
         $this->db->where('iSubcategoryId', $iSubcategoryId);

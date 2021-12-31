@@ -85,7 +85,15 @@ nav ul li a {
   background-size: cover;
   background-position: center;
   padding-left: 2.2rem;
-}
+  z-index: 10;
+  }
+
+  .navbar.sticked {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+  }
 
 .icons,
 .cart,
@@ -1140,7 +1148,7 @@ main {
 }
 
 .myBtn {
-  font-size: 3rem;
+  font-size: 2rem;
   border: 0;
   color: var(--main-font-color);
   background: transparent;
@@ -1487,12 +1495,16 @@ main {
 .right1 h2 {
   font-size: 1.5rem;
   color: var(--main-font-color);
+  font-family: "Poppins" , sans-serif;
   cursor: pointer;
+  letter-spacing: 1px;
 }
 
 .right1 h1 {
   font-size: 2rem;
   color: #430000;
+  letter-spacing: 1px;
+  font-weight: 600;
 }
 
 .right1 .logo {
@@ -1534,9 +1546,10 @@ input:focus ~ label,
 input:valid ~ label,
 textarea:focus ~ label,
 textarea:valid ~ label {
-  top: -14px;
-  font-size: 1.5rem;
+  top: -20px;
+  font-size: 1.3rem;
   color: var(--main-font-color);
+  letter-spacing: 1px;
 }
 
 input:focus ~ .bar:before,
@@ -1609,7 +1622,8 @@ label {
 }
 
 .right1 h3 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+  font-family: "Poppins" ,sans-serif;
   color: var(--main-font-color);
   cursor: pointer;
 }
@@ -1629,7 +1643,10 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  font-family: "Poppins" ,sans-serif;
+  letter-spacing: 1px;
+    font-weight: 700;
 }
 
 .loginForm .btn-box {
@@ -1640,7 +1657,7 @@ label {
 }
 
 .gbtn {
-  width: 60%;
+  width: 72%;
   background-color: #4285f4;
   color: #fff;
   font-weight: 700;
@@ -2080,7 +2097,9 @@ label {
 
 .total h2 {
   color: var(--main-font-color);
-  font-size: 2.2rem;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 2px;
 }
 
 .total h3 {
@@ -2110,9 +2129,11 @@ label {
 .checkout button {
   width: 50%;
   border: 0;
-  font-size: 2rem;
+  font-size: 1.6rem;
   padding: 0.8rem;
   cursor: pointer;
+  letter-spacing: 2px;
+  font-weight: 600;
   transition: all 0.2s linear;
 }
 
@@ -2328,8 +2349,9 @@ label {
 }
 .wrapped .containerss .textc article button {
   height: 4rem;
-  padding: 0 3rem;
-  border-radius: 50px;
+  padding: 0 2rem;
+  border-radius: 4rem;
+  font-family: "Poppins" , sans-serif;
   cursor: pointer;
   box-shadow: 0px 15px 20px rgba(54, 24, 79, 0.5);
   z-index: 3;
@@ -2337,7 +2359,8 @@ label {
   background-color: white;
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
   transition: all 0.3s ease;
 }
 .wrapped .containerss .textc article button:hover {
@@ -2526,6 +2549,14 @@ label {
   }
 }
 
+.wrapped .logo {
+  position: absolute;
+  top: 9%;
+  left: 46.5%;
+  z-index: 5;
+}
+
+
 /* Sizing Style  */
 
 .sizes label {
@@ -2592,16 +2623,18 @@ label {
 
 .rightcheck h3,
 .leftcheck h3 {
-  font-size: 2.2rem;
+  font-size: 2rem;
   color: #1e1e1e;
-  font-weight: 500;
+  font-weight: 700;
+  letter-spacing: 2px;
 }
 
 .rightcheck p,
 .leftcheck p {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   color: #1e1e1e;
   margin: 0;
+  font-weight: 700;
 }
 
 .rightcheck input,
@@ -2611,6 +2644,7 @@ label {
   border: 0;
   display: inline-block;
   font-size: 1.5rem;
+  letter-spacing: 1px;
 }
 
 .leftcheck select {
@@ -2641,11 +2675,14 @@ label {
   color: var(--main-font-color);
   font-size: 2.6rem;
   margin: 0;
+  letter-spacing: 2px;
 }
 
 .pay .p-maroon,
 .discount .p-maroon {
   font-size: 1.6rem;
+  letter-spacing: 1px;
+  font-weight: 700;
 }
 
 /* RIGHT SIDE  */
@@ -2662,12 +2699,19 @@ label {
 
 .cartTotal {
   background-color: #efeae6;
-  padding: 0rem 0.5rem;
+  background-color: #efeae6;
+  padding: 1rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 2px 2px 3px rgb(0,0,0,0.1) , -2px -2px 3px rgba(0, 0, 0, 0.1);
 }
 
+
+
+
 .rightcheck .cartinfo h2 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: #430000;
+  letter-spacing: 1px;
 }
 
 .cartTotal h5 {
@@ -2704,8 +2748,11 @@ label {
   border: 1px solid var(--main-font-color);
   cursor: pointer;
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   margin-top: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  padding: 0.7rem 0;
   transition: all 0.3s linear;
 }
 
@@ -3291,16 +3338,16 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .viewcart h1 {
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   font-weight: 500;
   letter-spacing: 1.5px;
-  color: var(--main-font-color);
+  color: #1e1e1e;
 }
 
 .viewcart h2 {
-  font-size: 2rem;
-  color: #430000;
-  font-weight: 600;
+  font-size: 1.8rem;
+  color: #292929;
+  font-weight: 500;
   letter-spacing: 1px;
 }
 
@@ -3330,10 +3377,79 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: 1rem;
   display: inline-flex;
   align-self: flex-end;
-  width: 26rem;
+  width: 28rem;
   margin-top: 1.5rem;
+  justify-content: center;
+  border: 0;
+  font-size: 1.3rem;
+  background: var(--main-font-color);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 2px;
+  transition: all 0.2s linear;
 }
 
+.checkBtn:hover {
+  background: #fff;
+  color: var(--main-font-color);
+}
+
+
+@media (max-width : 1200px) {
+  .viewcart{
+    padding: 2rem 5rem;
+  }
+
+  .viewcart .cartTotal{
+    width: 40rem;
+    padding: 1.2rem;
+  }
+
+  .viewcart h1{
+    font-size: 1.8rem;
+  }
+
+  .viewcart h2{
+    font-size: 1.5rem;
+  }
+
+  .cartTotal h5{
+    font-size: 1.3rem;
+  }
+}
+
+
+@media (max-width : 640px) {
+  .viewcart{
+    padding: 2rem 2rem;
+  }
+}
+
+@media (max-width : 575px) {
+  .viewcart .row.bord .col-sm-3{
+    width: 25% !important;
+  }
+
+  .viewcart h1{
+    font-size: 1.4rem;
+  }
+
+  .bord{
+    margin-top: 0rem;
+  }
+}
+
+@media (max-width :440px) {
+  .viewcart .cartTotal {
+    align-self: unset;
+    width: 100%;
+  }
+
+  .checkBtn{
+    align-self: unset;
+    width: 100%;
+  }
+}
 /* Re Designing  */
 
 .red {
@@ -3434,14 +3550,14 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 #rig {
-  width: calc(36rem * 3);
+  width: calc(47rem * 4 );
   margin: 0 auto;
   padding: 0;
 }
 #rig li {
   /* width: 25%; */
-  width: 35rem;
-  height: 35rem;
+  width: 46rem;
+  height: 46rem;
   /* vertical-align: middle; */
   display: inline-flex;
   justify-content: center;
@@ -3571,4 +3687,102 @@ input[type="number"]::-webkit-outer-spin-button {
   right: 54rem;
   top: 13rem;
   cursor: pointer;
+}
+
+
+/* Stories Styling  */
+
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,400&display=swap');
+
+.stories {
+  min-width: 100vw;
+  height: auto;
+  background: #f9f8f5;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  font-family: 'Amiri', serif;
+}
+
+.stories .main {
+  background: rgb(255, 255, 255);
+  min-height: 100vh;
+}
+
+.strLeft  img {
+  width: 70rem;
+  height: 80rem;
+}
+
+
+
+.strRight{
+  color: #333333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  
+}
+
+.strRight div {
+  text-align: center;
+}
+
+.strRight h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  letter-spacing: 2px;
+  color: #333333;
+}
+
+.strRight h4 {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  color: var(--main-font-color);
+}
+
+.strRight p{
+  font-size: 1.8rem;
+  font-style: italic;
+  margin: 1rem 0rem;
+} 
+
+.row.img div img{
+  width: 70rem;
+  height: 80rem;
+}
+
+.stories #wide {
+  width: 100%;
+  height: 80rem;
+}
+
+.stories h1.text-center {
+  font-size: 2rem;
+  color: var(--main-font-color);
+}
+
+.row.eye{
+  margin: 3rem 0rem;
+}
+
+.row.eye div h1 {
+  font-size: 2.5rem;
+  color: #333333;
+}
+
+
+.row.eye div h3 {
+  font-size: 1.8rem;
+  color: var(--main-font-color);
+  cursor: pointer;
+}
+
+.stories .line {
+  height: 0.1rem ;
+  text-align: center;
+  width: 18rem;
+  background: #aaa;
+  margin: 4rem auto;
 }

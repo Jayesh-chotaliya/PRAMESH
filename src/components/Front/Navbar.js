@@ -20,6 +20,7 @@ const Navbar = () => {
   const [slide, setSlide] = useState(false);
   const [search, setsearch] = useState(false);
   const [showMenus, setshowMenus] = useState(false);
+  const [stick, setstick] = useState(false)
   
   const [pop, setpop] = useState(false);
   const [logpop, setlogpop] = useState(false);
@@ -134,6 +135,15 @@ const Navbar = () => {
     }
   };
 
+  window.addEventListener("scroll", () => {
+    
+    if (window.scrollY > 10) {
+        setstick(true);
+    } else {
+        setstick(false);
+    }
+});
+
 
   const show_addtocart_data = () => {
     setSlide(true);
@@ -186,7 +196,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className={`navbar ${stick ? "sticked" : ""} navbar-expand-lg navbar-light bg-light`}>
         <div className="nav-div">
           <Link to="/">
             <div className="navbar-brand" href="/">

@@ -7,6 +7,7 @@ import axios from "axios";
 import { gsap } from "gsap";
 
 const Login = (props) => {
+    
     let history = useHistory();
     var answer = window.location.href;
     const answer_array = answer.split('/');

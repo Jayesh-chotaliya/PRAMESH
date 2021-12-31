@@ -16,6 +16,8 @@ import { Link } from "react-router-dom";
 
 const HomePage = () => {
     const [image_zooming, setimage_zooming] = useState('');
+ 
+
     const dispatch = useDispatch();
     var answer = window.location.href;
     const answer_array = answer.split('/');
@@ -35,6 +37,13 @@ const HomePage = () => {
         var Thirdimage              = `http://pramesh.justcodenow.com/backend/api/third_image`;
         var homepage_producturl     = `http://pramesh.justcodenow.com/backend/api/homepage_product`;
     }
+
+
+
+
+
+
+
 
     // *******************banner Data Get*****************************
     const fetchbanner = async () => {
@@ -159,7 +168,7 @@ const HomePage = () => {
     return (
         <>
             <ScrollToTop />
-            <Navbar />
+            <Navbar sticky = "yamin" />
             {/* ********** Main Section **************** */}
             <main>
                 <div
