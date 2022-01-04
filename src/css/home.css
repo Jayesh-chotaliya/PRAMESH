@@ -86,14 +86,14 @@ nav ul li a {
   background-position: center;
   padding-left: 2.2rem;
   z-index: 10;
-  }
+}
 
-  .navbar.sticked {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 100;
-  }
+.navbar.sticked {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
 
 .icons,
 .cart,
@@ -1052,9 +1052,9 @@ main {
 }
 
 .festive2 .row div img {
-  /* width: 100%; */
+  width: 100%;
   /* height: 100% ; */
-  width: 33rem;
+  /* width: 33rem; */
   height: 54rem;
   margin-bottom: 0.5rem;
   cursor: pointer;
@@ -1094,9 +1094,18 @@ main {
   z-index: 11;
 }
 
-.imgEffect {
-  width: 33rem;
+/* .imgEffect {
+  width: 100%;
   height: 54rem;
+} */
+
+.customCol.col-xl-3 {
+  max-width: 21% !important;
+  flex: 0 0 21% !important;
+}
+
+.dropdown-menu {
+  box-shadow: none !important;
 }
 
 .imgEffect .img1,
@@ -1130,13 +1139,21 @@ main {
 }
 
 .categories {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  /* background: var(--main-font-color); */
-  border: 1px solid var(--main-font-color);
-  border-radius: 1rem;
-  /* box-shadow: 2px 2px 4px #5e00093f, -2px -2px 4px #5e00093f; */
+  position: relative;
+  height: 4rem;
+}
+
+#sort {
+  position: absolute;
+  top: 0;
+  right: 6rem;
+}
+
+#filter {
+  position: fixed;
+  z-index: 15;
+  /* top: 25rem; */
+  left: 3rem;
 }
 
 .categories .dropdown-toggle::after {
@@ -1181,7 +1198,7 @@ main {
 }
 
 .festive2 .row {
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); */
   padding-top: 2rem;
 }
 
@@ -1228,22 +1245,43 @@ main {
 .fabric {
   font-family: "Butler", sans-serif;
   width: 20rem;
-  text-align: center;
-  margin-right: 1rem;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1);
+  /* text-align: center; */
+  /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1); */
   padding: 0.7rem;
   border-radius: 0.5rem;
   color: var(--main-font-color);
+  height: auto;
+  margin-bottom: 1.2rem;
+  margin-right: 1.2rem;
+  background: transparent;
+}
+
+.scrolling {
+  overflow-y: scroll;
+  max-height: 100vh;
+  height: 60rem;
+}
+
+.scrolling::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+.scrolling::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+.scrolling::-webkit-scrollbar-thumb {
+  background: var(--main-font-color);
 }
 
 .price h2,
 .color h2,
 .fabric h2 {
-  text-decoration: underline;
   color: var(--main-font-color);
   margin-bottom: 3rem;
   font-size: 2rem;
   font-weight: 700;
+  cursor: pointer;
 }
 .catoFlex .d-flex input {
   margin-right: 0.5rem;
@@ -1253,13 +1291,28 @@ main {
   font-size: 2rem;
 }
 
-.catoFlex .flex {
+ .catoFlex .flex {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  font-family: "Playfair Display", serif;
-  font-size: 1.7rem;
-  font-weight: 700;
+  font-family: "Butler", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  display: none;
+  cursor: pointer;
+}
+
+.catoFlex .flex.flexing{
+  display: block !important;
+}
+
+.flex.none{
+  display: block;
+}
+
+.pretty {
+  display: block !important;
 }
 
 .catoFlex .flex .pretty {
@@ -1495,7 +1548,7 @@ main {
 .right1 h2 {
   font-size: 1.5rem;
   color: var(--main-font-color);
-  font-family: "Poppins" , sans-serif;
+  font-family: "Poppins", sans-serif;
   cursor: pointer;
   letter-spacing: 1px;
 }
@@ -1623,7 +1676,7 @@ label {
 
 .right1 h3 {
   font-size: 1.6rem;
-  font-family: "Poppins" ,sans-serif;
+  font-family: "Poppins", sans-serif;
   color: var(--main-font-color);
   cursor: pointer;
 }
@@ -1644,9 +1697,9 @@ label {
   justify-content: space-between;
   align-items: center;
   font-size: 1.4rem;
-  font-family: "Poppins" ,sans-serif;
+  font-family: "Poppins", sans-serif;
   letter-spacing: 1px;
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .loginForm .btn-box {
@@ -2351,7 +2404,7 @@ label {
   height: 4rem;
   padding: 0 2rem;
   border-radius: 4rem;
-  font-family: "Poppins" , sans-serif;
+  font-family: "Poppins", sans-serif;
   cursor: pointer;
   box-shadow: 0px 15px 20px rgba(54, 24, 79, 0.5);
   z-index: 3;
@@ -2556,7 +2609,6 @@ label {
   z-index: 5;
 }
 
-
 /* Sizing Style  */
 
 .sizes label {
@@ -2702,11 +2754,8 @@ label {
   background-color: #efeae6;
   padding: 1rem 1rem;
   border-radius: 0.5rem;
-  box-shadow: 2px 2px 3px rgb(0,0,0,0.1) , -2px -2px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 3px rgb(0, 0, 0, 0.1), -2px -2px 3px rgba(0, 0, 0, 0.1);
 }
-
-
-
 
 .rightcheck .cartinfo h2 {
   font-size: 1.8rem;
@@ -2913,17 +2962,19 @@ label {
 }
 
 .resetdiv h3 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: #fff;
-  font-weight: 100;
-  margin-bottom: 2rem;
+  font-weight: 500;
+  margin: 2rem 0rem;
+  letter-spacing: 1px;
   text-align: center;
 }
 
 .resetdiv h1 {
-  font-size: 3rem;
-  font-weight: 100;
-  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #ffffff;
   text-align: center;
 }
 
@@ -2933,6 +2984,7 @@ label {
   margin: 1rem 0rem;
   color: #fff;
   font-size: 1.5rem;
+  letter-spacing: 2px;
 }
 
 .resetdiv input::placeholder {
@@ -2944,7 +2996,7 @@ label {
   border: 1px solid #fff;
   color: #fff;
   padding: 0.8rem;
-  font-size: 2rem;
+  font-size: 1.7rem;
   margin: 1.5rem 0rem;
   background: transparent;
   transition: all 0.2s linear;
@@ -2965,10 +3017,11 @@ label {
 
 .resetdiv div h4 {
   color: #fff;
-  font-size: 2.5rem;
-  font-weight: 100;
+  font-size: 1.8rem;
+  font-weight: 500;
   margin-right: 1rem;
   cursor: pointer;
+  letter-spacing: 1px;
   display: inline-block;
 }
 
@@ -2997,10 +3050,10 @@ label {
   align-items: center;
   text-align: center;
   padding: 1rem;
-  height: 40rem;
+  min-height: 40rem;
   border: 1px solid #ffff !important ;
   border-radius: 0.5rem;
-  background: #5e000944;
+  background: #ffffff44;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), -2px -2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -3050,7 +3103,8 @@ label {
   font-size: 2.5rem;
   text-align: center;
   color: var(--main-font-color);
-  font-weight: 100;
+  font-weight: 500;
+  letter-spacing: 1px;
 }
 .c-email__content {
   width: 100%;
@@ -3064,7 +3118,9 @@ label {
 }
 
 .c-email__content__text {
-  font-size: 2rem;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  font-weight: 600;
   text-align: center;
   color: var(--main-font-color);
 }
@@ -3089,7 +3145,9 @@ label {
   border: 0;
   cursor: pointer;
   color: #fff;
-  font-size: 2rem;
+  font-size: 1.9rem;
+  font-weight: 600;
+  letter-spacing: 1px;
   transition: all 0.3s linear;
 }
 
@@ -3245,6 +3303,7 @@ label {
   font-size: 1.6rem;
   font-weight: 600;
   letter-spacing: 1px;
+  color: #430000;
 }
 
 .slick-dots {
@@ -3267,10 +3326,16 @@ label {
 .mymenu.dropdown-menu {
   display: block;
   padding: 1rem;
+  background: transparent;
   position: absolute !important;
 }
 
 .mymenu.dropdown-menu::before {
+  content: "";
+  background: transparent !important;
+}
+
+.categories .mymenu.dropdown-menu::before {
   content: "";
   background: #fff !important;
 }
@@ -3394,58 +3459,56 @@ input[type="number"]::-webkit-outer-spin-button {
   color: var(--main-font-color);
 }
 
-
-@media (max-width : 1200px) {
-  .viewcart{
+@media (max-width: 1200px) {
+  .viewcart {
     padding: 2rem 5rem;
   }
 
-  .viewcart .cartTotal{
+  .viewcart .cartTotal {
     width: 40rem;
     padding: 1.2rem;
   }
 
-  .viewcart h1{
+  .viewcart h1 {
     font-size: 1.8rem;
   }
 
-  .viewcart h2{
+  .viewcart h2 {
     font-size: 1.5rem;
   }
 
-  .cartTotal h5{
+  .cartTotal h5 {
     font-size: 1.3rem;
   }
 }
 
-
-@media (max-width : 640px) {
-  .viewcart{
+@media (max-width: 640px) {
+  .viewcart {
     padding: 2rem 2rem;
   }
 }
 
-@media (max-width : 575px) {
-  .viewcart .row.bord .col-sm-3{
+@media (max-width: 575px) {
+  .viewcart .row.bord .col-sm-3 {
     width: 25% !important;
   }
 
-  .viewcart h1{
+  .viewcart h1 {
     font-size: 1.4rem;
   }
 
-  .bord{
+  .bord {
     margin-top: 0rem;
   }
 }
 
-@media (max-width :440px) {
+@media (max-width: 440px) {
   .viewcart .cartTotal {
     align-self: unset;
     width: 100%;
   }
 
-  .checkBtn{
+  .checkBtn {
     align-self: unset;
     width: 100%;
   }
@@ -3550,7 +3613,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 #rig {
-  width: calc(47rem * 4 );
+  width: calc(47rem * 4);
   margin: 0 auto;
   padding: 0;
 }
@@ -3655,18 +3718,16 @@ input[type="number"]::-webkit-outer-spin-button {
   transition: all 0.1s linear;
 }
 
-
-.luser:hover{
+.luser:hover {
   color: #fff !important;
-  border-color: #fff ;
+  border-color: #fff;
 }
 
-@media (max-width : 1209px) {
-  .logout{
+@media (max-width: 1209px) {
+  .logout {
     top: -6.5rem;
   }
 }
-
 
 /* Login Popup   */
 
@@ -3689,10 +3750,9 @@ input[type="number"]::-webkit-outer-spin-button {
   cursor: pointer;
 }
 
-
 /* Stories Styling  */
 
-@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,400&display=swap");
 
 .stories {
   min-width: 100vw;
@@ -3701,7 +3761,7 @@ input[type="number"]::-webkit-outer-spin-button {
   display: flex;
   justify-content: center;
   /* align-items: center; */
-  font-family: 'Amiri', serif;
+  font-family: "Amiri", serif;
 }
 
 .stories .main {
@@ -3709,20 +3769,17 @@ input[type="number"]::-webkit-outer-spin-button {
   min-height: 100vh;
 }
 
-.strLeft  img {
+.strLeft img {
   width: 70rem;
   height: 80rem;
 }
 
-
-
-.strRight{
+.strRight {
   color: #333333;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  
 }
 
 .strRight div {
@@ -3742,13 +3799,13 @@ input[type="number"]::-webkit-outer-spin-button {
   color: var(--main-font-color);
 }
 
-.strRight p{
+.strRight p {
   font-size: 1.8rem;
   font-style: italic;
   margin: 1rem 0rem;
-} 
+}
 
-.row.img div img{
+.row.img div img {
   width: 70rem;
   height: 80rem;
 }
@@ -3763,7 +3820,7 @@ input[type="number"]::-webkit-outer-spin-button {
   color: var(--main-font-color);
 }
 
-.row.eye{
+.row.eye {
   margin: 3rem 0rem;
 }
 
@@ -3772,7 +3829,6 @@ input[type="number"]::-webkit-outer-spin-button {
   color: #333333;
 }
 
-
 .row.eye div h3 {
   font-size: 1.8rem;
   color: var(--main-font-color);
@@ -3780,7 +3836,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .stories .line {
-  height: 0.1rem ;
+  height: 0.1rem;
   text-align: center;
   width: 18rem;
   background: #aaa;

@@ -49,13 +49,13 @@ const Stories = () => {
       <section className="stories">
         <div className="main mt-5">
           <div className="row justify-content-center mb-5">
-            <div className="col-xl-6 strLeft">
+            <div className="col-xl-6  strLeft">
               <img
                 src={process.env.PUBLIC_URL + "/Images/goodearth1.jpg"}
                 alt="good Earth"
               />
             </div>
-            <div className="col-xl-5 strRight">
+            <div className="col-xl-5  strRight">
               <div>
                 <h1>Welcome To The Garden Of Good Earth</h1>
                 <h4>Design Collections</h4>
@@ -179,7 +179,7 @@ const Stories = () => {
       </section>
 
       <div className="row" style={{background : "#fff" , marginBottom : "3rem"}}>
-        <div className="col-xl-10 mx-auto">
+        <div className="col-xl-12 mx-auto">
           <div className="slickslider">
             <Slider {...settings}>
               <div className="sliderImg">

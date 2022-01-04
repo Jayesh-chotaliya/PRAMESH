@@ -361,7 +361,7 @@ const HomePage = () => {
             {/* *********** Classic Section ************* */}
             <section className="classic">
 
-                <div className="classic-div2">
+                {/* <div className="classic-div2">
                     <h1>
                         TIME<span>LESS</span>
                     </h1>
@@ -372,8 +372,8 @@ const HomePage = () => {
                         MADE TO LAST,GETTIN<span>G</span>
                         <span> BETTER EVERY YEAR</span>
                     </p>
-                    {/* <button className="sareeBtn2">DISCOVER</button> */}
-                </div>
+                    <button className="sareeBtn2">DISCOVER</button>
+                </div> */}
 
                 <div className="img">
                     <img src={img1} alt="Image" className="img-fluid" />
