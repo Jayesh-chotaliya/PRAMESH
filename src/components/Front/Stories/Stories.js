@@ -46,22 +46,22 @@ const Stories = () => {
   return (
     <>
       <Navbar />
-      <section className="stories">
-        <div className="main mt-5">
+      <section className="stories ">
+        <div className="main   mt-5">
           <div className="row justify-content-center mb-5">
-            <div className="col-xl-6  strLeft">
+            <div className=" strLeft col-xl-6 col-lg-9 col-md-9 col-sm-8 col-9 mx-auto ">
               <img
                 src={process.env.PUBLIC_URL + "/Images/goodearth1.jpg"}
                 alt="good Earth"
               />
             </div>
-            <div className="col-xl-5  strRight">
+            <div className="strRight col-xl-5 col-lg-9  col-md-9 col-sm-7  col-9 mx-auto ">
               <div>
                 <h1>Welcome To The Garden Of Good Earth</h1>
                 <h4>Design Collections</h4>
                 <p>
                   For 25 years, we have been nurturing a homegrown design and
-                  <br /> lifestyle brand that celebrates style from an Indian
+                   lifestyle brand that celebrates style from an Indian
                   perspective.
                 </p>
                 <h4>DISCOVER OUR SHOP</h4>
@@ -70,13 +70,13 @@ const Stories = () => {
           </div>
 
           <div className="row img justify-content-center">
-            <div className="col-xl-6">
+            <div className="col-xl-6  col-lg-9 col-md-9 col-sm-8 col-9 mx-auto">
               <img
                 src={process.env.PUBLIC_URL + "/Images/goodearth2.jpg"}
                 alt="good Earth"
               />
             </div>
-            <div className="col-xl-6">
+            <div className="col-xl-6 col-lg-9 col-md-9 col-sm-8 col-9 mx-auto">
               <img
                 src={process.env.PUBLIC_URL + "/Images/goodearth1.jpg"}
                 alt="good Earth"
@@ -84,8 +84,8 @@ const Stories = () => {
             </div>
           </div>
 
-          <div className="row img justify-content-center my-5">
-            <div className="col-xl-12">
+          <div className="row  justify-content-center my-5">
+            <div className="col-xl-12   col-lg-12 col-md-12 col-sm-12 col-12 mx-auto">
               <img
                 src={process.env.PUBLIC_URL + "/Images/goodearth3.jpg"}
                 alt="good Earth"
@@ -98,10 +98,10 @@ const Stories = () => {
             'PEHCHAAN' | PRAMESH DOCUMENTARY FILMS
           </h1>
 
-          <div className="row justify-content-center mt-5">
-            <div className="col-xl-5">
+          <div className="row eye  mt-5">
+            <div className="col-xl-6  col-lg-6 col-md-12 col-sm-12 col-12 mx-auto text-center">
               <iframe
-                width="500"
+                width="100%"
                 height="350"
                 src="https://www.youtube.com/embed/CcyJNDrUUcc"
                 title="YouTube video player"
@@ -109,10 +109,12 @@ const Stories = () => {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
+              <h1>Babu Rao Trailer </h1>
+              <h3>LEARN MORE</h3>
             </div>
-            <div className="col-xl-5">
+            <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12  col-12 mx-auto text-center">
               <iframe
-                width="500"
+                width="100%"
                 height="350"
                 src="https://www.youtube.com/embed/OhczQxPQYe8"
                 title="YouTube video player"
@@ -120,52 +122,39 @@ const Stories = () => {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
-            </div>
-          </div>
 
-          <div className="row eye justify-content-center">
-            <div className=" col-xl-5 text-center">
               <h1>Babu Rao Trailer </h1>
               <h3>LEARN MORE</h3>
             </div>
-            <div className=" col-xl-5 text-center">
-              <h1>Doctor Strange Trailer </h1>
-              <h3>LEARN MORE</h3>
-            </div>
           </div>
 
-          <div className="row justify-content-center mt-5">
-            <div className="col-xl-5">
+
+          <div className="row eye  mt-5">
+            <div className="col-xl-6  col-lg-6 col-md-12 col-sm-12 col-12 mx-auto text-center">
               <iframe
-                width="500"
+                width="100%"
                 height="350"
-                src="https://www.youtube.com/embed/RZVkPuwxfgY"
+                src="https://www.youtube.com/embed/CcyJNDrUUcc"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
+              <h1>Babu Rao Trailer </h1>
+              <h3>LEARN MORE</h3>
             </div>
-            <div className="col-xl-5">
+            <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12  col-12 mx-auto text-center">
               <iframe
-                width="500"
+                width="100%"
                 height="350"
-                src="https://www.youtube.com/embed/nqUbSvFS1e4"
+                src="https://www.youtube.com/embed/OhczQxPQYe8"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
-            </div>
-          </div>
 
-          <div className="row eye justify-content-center">
-            <div className=" col-xl-5 text-center">
-              <h1>Spider Home Coming Trailer </h1>
-              <h3>LEARN MORE</h3>
-            </div>
-            <div className=" col-xl-5 text-center">
-              <h1>Dil Diya Gallan Song </h1>
+              <h1>Babu Rao Trailer </h1>
               <h3>LEARN MORE</h3>
             </div>
           </div>
@@ -174,12 +163,12 @@ const Stories = () => {
 
           <h1 className="text-center mb-5">
             TIMELESS: A LIFETIME OF RELATIONSHIPS{" "}
-          </h1>
+          </h1> 
         </div>
       </section>
 
       <div className="row" style={{background : "#fff" , marginBottom : "3rem"}}>
-        <div className="col-xl-12 mx-auto">
+        <div className="col-xl-11 mx-auto">
           <div className="slickslider">
             <Slider {...settings}>
               <div className="sliderImg">
@@ -236,32 +225,33 @@ const Stories = () => {
         </div>
       </div>
 
+     
 
-      <section className="stories">
-          <div className="main">
+      <section className="stories ">
+        <div className="main  ">
           <div className="row p-4 mt-5">
-            <div className="col-xl-7 strLeft">
+            <div className="strLeft col-xl-7 col-lg-9 col-md-9 col-sm-8 col-9 mx-auto mx-auto ">
               <img
                 src={process.env.PUBLIC_URL + "/Images/goodearth4.jpg"}
                 alt="good Earth"
               />
             </div>
-            <div className="col-xl-5 strRight">
+            <div className="strRight col-xl-5 col-lg-9 col-md-9 col-sm-7 col-9 mx-auto mx-auto ">
               <div>
                 <h1>Jodhpur: Must-Visits In The Royal City</h1>
                 <h4>Film Stories</h4>
                 <p>
-                It is in the twisting alleyways of Jodhpur that <br /> the magic of the Blue City truly comes alive.
+                  It is in the twisting alleyways of Jodhpur that <br /> the
+                  magic of the Blue City truly comes alive.
                 </p>
                 <h4>READ MORE</h4>
               </div>
             </div>
           </div>
-          </div>
+        </div>
       </section>
 
-      <Footer/>
-
+      <Footer />
     </>
   );
 };

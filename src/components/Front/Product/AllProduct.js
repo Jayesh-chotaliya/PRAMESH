@@ -24,6 +24,7 @@ const AllProduct = () => {
   const [show1, setshow1] = useState(false)
   const [show2, setshow2] = useState(false)
   const [show3, setshow3] = useState(false)
+  const [snap, setsnap] = useState(false)
 
 //   function animeEffect() {
 //     if (animation == false) {
@@ -243,6 +244,16 @@ const AllProduct = () => {
     }
   });
 
+  window.addEventListener("scroll", () => {
+   if( window.scrollY >= 100) {
+   setsnap(true)
+   }else {
+     setsnap(false)
+   }
+  
+  });
+
+
   const show_1 = () => {
       if(show1 == false) {
           setshow1(true)
@@ -294,7 +305,7 @@ const show_3 = () => {
 
         {/* Filter design  */}
 
-        <div className={`dropdown ${filter ? "d-none" : ""}`} id="filter">
+        <div id="filter" className={`dropdown ${filter ? "d-none" : ""} ${snap ? "snapped" : ""}`} >
           <button
             className=" myBtn dropdown-toggle"
             type="button"
