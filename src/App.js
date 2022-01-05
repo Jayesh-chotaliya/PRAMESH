@@ -14,6 +14,9 @@ const PageNotFound = React.lazy(() => import("./components/Front/Errorpage/Error
 const Checkout = React.lazy(() => import("./components/Front/Checkout/Checkout"));
 const Verifyotp = React.lazy(() => import("./components/Front/Verifyotp/Verifyotp"));
 const Viewcart = React.lazy(() => import("./components/Front/Viewcart/Viewcart"));
+const Stories = React.lazy(() => import("./components/Front/Stories/Stories"));
+
+
 
 
 const Register = React.lazy(() =>
@@ -209,7 +212,7 @@ class App extends React.Component {
           <Switch>
 
 
-            <Route exact path="/" component={HomePage} />
+            <Route exact path="/" component={HomePage}  />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/category" component={MainCategory} />
@@ -223,6 +226,7 @@ class App extends React.Component {
             <Route exact path="/checkout" component={Checkout} />
             <Route exact path="/verifyotp" component={Verifyotp} />
             <Route exact path="/viewcart" component={Viewcart} />
+            <Route exact path="/stories" component={Stories} />
 
             <Route exact path="/admin/login" component={LazyLogin} />
             <Route exact path="/admin/" component={LazyDashboard} iAdminId={iAdminId} vUserName={vUserName} />

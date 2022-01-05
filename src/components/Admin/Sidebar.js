@@ -85,6 +85,15 @@ const Sidebar = () =>
                             </Link>
                         </li>
                         <li className="nav-item">
+                            <Link to='/admin/color/listing'>
+                                <a className="nav-link">
+                                    <i class="fas fa-palette text-yellow"></i>
+                                    <span className="nav-link-text">Color</span>
+                                </a>
+                            </Link>
+                        </li>
+
+                        <li className="nav-item">
                             <Link to='/admin/variants/listing'>
                                 <a className="nav-link">
                                     <i class="fab fa-accusoft" style={{'color':'blue'}}></i>

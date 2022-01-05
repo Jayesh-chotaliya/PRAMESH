@@ -95,6 +95,8 @@ class Product_model extends CI_Model
         $this->db->where('t2.vPrice',$vPrice);
         $this->db->where('t.eStatus','Active');
         $query = $this->db->get();
+        $this->db->last_query();
+
         $data  = $query->result();
 
         foreach($data as $key => $value)
@@ -108,6 +110,32 @@ class Product_model extends CI_Model
         return $data;  
        
     }
+    
+    public function get_by_category_wise_product($iCategoryId)
+    { 
+        $this->db->select('t.*,t2.vPrice');
+        $this->db->from($this->table.' t');
+        $this->db->join($this->table_product_variants.' t2','t.iProductId=t2.iProductId');
+        $this->db->where('t.iCategoryId',$iCategoryId);
+        $this->db->where('t.eStatus','Active');
+        $this->db->group_by('t.iProductId');
+        $this->db->order_by('iProductId','RANDOM');
+        $this->db->limit(12);
+        $query = $this->db->get();
+        $this->db->last_query();
+        $data  = $query->result();
+        foreach($data as $key => $value)
+        {
+            $this->db->from($this->table_product_image);
+            $this->db->where('iProductId',$value->iProductId);
+            $this->db->limit(1);
+            $query=$this->db->get();
+            $data[$key]->image = $query->result();
+        }
+        return $data;  
+       
+    }
+
    
     public function get_by_all_product_variyant($iProductId)
     {

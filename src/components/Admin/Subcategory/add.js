@@ -9,9 +9,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Subcategoryadd = () => {
     let history = useHistory();
-    const [Category, setCategory]       = useState([]);
+    const [Category, setCategory] = useState([]);
+    const [FabricArray, setFabricArray] = useState([]);
     const [Category_v, setCategory_v]   = useState("");
     const [Title, setTitle]             = useState("");
+    const [Fabric, setFabric] = useState("");
+    const [ErrorFabric, setErrorFabric] = useState("");
     const [Gif, setGif]                 = useState(false);
 
     const [ProductType, setProductType] = useState("0");
@@ -37,6 +40,14 @@ const Subcategoryadd = () => {
         {
             setCategoryError("Select Category");
         }
+        if (Fabric)
+        {
+            setErrorFabric('');
+        }
+        else
+        {
+            setErrorFabric('Please Select Main Category');
+        }
        
 
         var answer = window.location.href;
@@ -53,8 +64,8 @@ const Subcategoryadd = () => {
         fd.append('iCategoryId', Category_v);
         fd.append('vTitle', Title);
         fd.append('ProductType', ProductType);
+        fd.append('iFabricId', Fabric)
         fd.append('eStatus', Status);
-
 
         if (Title && Category_v)
         {
@@ -93,7 +104,6 @@ const Subcategoryadd = () => {
                 .catch(error => {
                 })
         }
-
     }
 
     var answer = window.location.href;
@@ -109,20 +119,16 @@ const Subcategoryadd = () => {
         axios.get(urls)
             .then(res => {
                 setCategory(res.data.data);
+                setFabricArray(res.data.fabric);
             })
             .catch(err => {
                 console.log(err);
             })
     }, [])
-    
-   
-    
 
-    
+    console.log(FabricArray);
     return (
-
         <>
-
             <Sidebar />
             <div className="main-content" id="panel" >
                 <Header />
@@ -156,6 +162,20 @@ const Subcategoryadd = () => {
                                                         <span className="red">{CategoryError}</span>
                                                     </div>
                                                 </div>
+                                                <div className="col-lg-6">
+                                                    <div className="form-group">
+                                                        <label className="form-control-label" for="vTitle">Main Category</label>
+                                                        <select className="form-control" onChange={(e) => setFabric(e.target.value)}>
+                                                            <option>Select Category</option>
+                                                            {FabricArray.map((cat, index) => (
+                                                                <option value={cat.iFabricId}>{cat.vTitle}</option>
+                                                            ))}
+                                                        </select>
+
+                                                        <span className="red">{ErrorFabric}</span>
+                                                    </div>
+                                                </div>
+
                                                 <div className="col-lg-6">
                                                     <div className="form-group">
                                                         <label className="form-control-label" for="vTitle">SubCategory Title</label>

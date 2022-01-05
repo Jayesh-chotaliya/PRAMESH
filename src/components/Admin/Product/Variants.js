@@ -304,7 +304,7 @@ class Variants extends React.Component {
 
                                                     <td>
                                                         {
-                                                            VariantsId!=''?
+                                                            VariantsId.length != '0' && VariantsId.length != '19' ?
                                                                 <a onClick={this.handleAddRow} className="btn btn-outline-primary btn-sm">Add Row</a>
                                                             :
                                                             <></>
@@ -371,7 +371,7 @@ class Variants extends React.Component {
 
                                                     <td>
                                                         {
-                                                            VariantsId!=''?
+                                                            VariantsId.length != '0' && VariantsId.length != '19' ?
                                                                 <a onClick={this.handleAddRow} className="btn btn-outline-primary btn-sm">Add Row</a>
                                                             :
                                                             <></>

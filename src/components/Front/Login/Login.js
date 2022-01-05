@@ -187,7 +187,7 @@ const Login = () => {
 
                     <div className="info">
                             <div className="group">
-                                <input type="text" onChange={(e) => setEmail(e.target.value)}  name="email" id="email" />
+                                <input type="text" onChange={(e) => setEmail(e.target.value)}  name="email" id="email"  />
                                 <span className="highlight"></span>
                                 <span className="bar"></span>
                                 <label>Email</label>
@@ -220,7 +220,7 @@ const Login = () => {
                                     LOGIN
                                 </button>
                                 <button className=" btn gbtn">
-                                    <img class=" mr-2"   src={process.env.PUBLIC_URL + "/Images/google.svg"}  /> Google
+                                    <img class=" mr-2"   src={process.env.PUBLIC_URL + "/Images/google.svg"}  /> Login With Google
                                 </button>
                             </div>
 
@@ -253,6 +253,7 @@ const Login = () => {
                             id="resetemail"
                             onChange={(e) => setResetEmail(e.target.value)}
                             placeholder="Email Address"
+                            
                         />
                         <span className="red">{ErrorEmail}</span>
                         <button onClick={ResetPassword}  className="resetbtn">RESET PASSWORD</button>

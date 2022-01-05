@@ -49,7 +49,6 @@ const Product_image = () => {
                         draggable: true,
                         progress: undefined,
                     });
-
                     setTimeout(function () {
                         window.location.reload(1);
                     }, 1000);
@@ -70,9 +69,7 @@ const Product_image = () => {
 
     function Homepageshowimage(event)
     {
-        
         var type = event.target.getAttribute("data-id");
-        
         var iImageId = event.target.id;
         const fd = new FormData();
         fd.append("iImageId", iImageId);
@@ -113,7 +110,6 @@ const Product_image = () => {
         setGif(true);
         event.preventDefault();
         const data = new FormData(event.target);
-
         const dataa = axios
             .post(url, data)
             .then((res) => {

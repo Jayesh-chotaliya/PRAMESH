@@ -16,6 +16,8 @@ import { Link } from "react-router-dom";
 
 const HomePage = () => {
     const [image_zooming, setimage_zooming] = useState('');
+ 
+
     const dispatch = useDispatch();
     var answer = window.location.href;
     const answer_array = answer.split('/');
@@ -35,6 +37,13 @@ const HomePage = () => {
         var Thirdimage              = `http://pramesh.justcodenow.com/backend/api/third_image`;
         var homepage_producturl     = `http://pramesh.justcodenow.com/backend/api/homepage_product`;
     }
+
+
+
+
+
+
+
 
     // *******************banner Data Get*****************************
     const fetchbanner = async () => {
@@ -159,7 +168,7 @@ const HomePage = () => {
     return (
         <>
             <ScrollToTop />
-            <Navbar />
+            <Navbar sticky = "yamin" />
             {/* ********** Main Section **************** */}
             <main>
                 <div
@@ -352,7 +361,7 @@ const HomePage = () => {
             {/* *********** Classic Section ************* */}
             <section className="classic">
 
-                <div className="classic-div2">
+                {/* <div className="classic-div2">
                     <h1>
                         TIME<span>LESS</span>
                     </h1>
@@ -363,8 +372,8 @@ const HomePage = () => {
                         MADE TO LAST,GETTIN<span>G</span>
                         <span> BETTER EVERY YEAR</span>
                     </p>
-                    {/* <button className="sareeBtn2">DISCOVER</button> */}
-                </div>
+                    <button className="sareeBtn2">DISCOVER</button>
+                </div> */}
 
                 <div className="img">
                     <img src={img1} alt="Image" className="img-fluid" />

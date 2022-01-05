@@ -9,7 +9,8 @@ const Error = () => {
     return (
         <>
 
-            <section className="wrapped">
+            <section className="wrapped position-relative">
+            <img className='logo'  src={process.env.PUBLIC_URL + "/Images/Logo.png"} alt="Logo" />
                 <div className="bgpurple"></div>
 
                 <div className="containerss">
